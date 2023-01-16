@@ -98,9 +98,9 @@ namespace BARMAN_STORE1._0.Include
                 dtg.DataSource = dataView;//datatable;
 
                
-                funct.ResponsiveDtg(dtg);
-                dtg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dtg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                //funct.ResponsiveDtg(dtg);
+                //dtg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                //dtg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
                 
                 
@@ -135,6 +135,41 @@ namespace BARMAN_STORE1._0.Include
                 cbo.ValueMember = datatable.Columns[0].ColumnName;
                 cbo.DisplayMember = datatable.Columns[0].ColumnName;
 
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dataadapter.Dispose();
+                connection.Close();
+            }
+
+        }
+        public void fiil_CBOX(string sql, ComboBox cbo)
+        {
+            try
+            {
+                connection.Open();
+                command = new SqlCommand();
+                dataadapter = new SqlDataAdapter();
+                datatable = new DataTable();
+
+
+                command.Connection = connection;
+                command.CommandText = sql;
+                dataadapter.SelectCommand = command;
+                dataadapter.Fill(datatable);
+                cbo.Items.Clear();
+                cbo.Items.Add("*ALL");
+                foreach(DataRow X in datatable.Rows)
+                {
+                    cbo.Items.Add(X[0].ToString());
+                }
+                cbo.ValueMember = datatable.Columns[0].ColumnName;
+                cbo.DisplayMember = datatable.Columns[0].ColumnName;
 
             }
             catch (Exception ex)

@@ -37,6 +37,7 @@ namespace BARMAN_STORE1._0.Vouchers
         private void Voucher_Load(object sender, EventArgs e)
         {
             LoadDetails();
+            
         }
 
         internal void modifyButton_Click(object sender, EventArgs e)
@@ -155,20 +156,7 @@ namespace BARMAN_STORE1._0.Vouchers
             }
         }
 
-        private void voucher_amountTextBox_TextChanged(object sender, EventArgs e)
-        {
-            double number;
-            if (double.TryParse(voucher_amountTextBox.Text, out number))
-            {
-                voucher_amountTextBox.ForeColor = Color.Black;
-                //number = Math.Round(number, 2);
-                voucher_amountTextBox.Text = number.ToString("0.00");
-            }
-            else
-            {
-                voucher_amountTextBox.ForeColor = Color.Red;
-            }
-        }
+       
 
         private void voucher_duedateTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -227,6 +215,18 @@ namespace BARMAN_STORE1._0.Vouchers
             voucher_duedateTextBox.Text = voucher_duedate.ToString();
             voucher_typeTextBox.Text = voucher_type;
             amount_pendingTextBox.Text = amount_pending.ToString();
+            double number;
+            if (double.TryParse(voucher_amountTextBox.Text, out number))
+            {
+                voucher_amountTextBox.ForeColor = Color.Black;
+                //number = Math.Round(number, 2);
+                voucher_amountTextBox.Text = number.ToString("0.00");
+            }
+            else
+            {
+                voucher_amountTextBox.ForeColor = Color.Red;
+            }
+
         }
 
         private void LoadTransaction()
@@ -269,6 +269,21 @@ namespace BARMAN_STORE1._0.Vouchers
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             tabControl1_TabIndexChanged(sender, e);
+        }
+
+        private void voucher_amountTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            double number;
+            if (double.TryParse(voucher_amountTextBox.Text, out number))
+            {
+                voucher_amountTextBox.ForeColor = Color.Black;
+                //number = Math.Round(number, 2);
+                voucher_amountTextBox.Text = number.ToString("0.00");
+            }
+            else
+            {
+                voucher_amountTextBox.ForeColor = Color.Red;
+            }
         }
     }
 }
