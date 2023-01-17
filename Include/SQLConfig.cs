@@ -15,7 +15,10 @@ namespace BARMAN_STORE1._0.Include
     {
 
         private const string CONNECTIONSTRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\NAREN\DESKTOP\BSPROJECT\BARMAN STORE1._0\USERDATABASE.MDF;Integrated Security=True";
-
+        public string MyConnectionString()
+        {
+            return CONNECTIONSTRING;
+        }
        // private const string CONNECTIONSTRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\UserDatabase.mdf;Integrated Security=True";
         private SqlConnection connection = new SqlConnection(CONNECTIONSTRING);
         private SqlCommand command;
@@ -98,9 +101,9 @@ namespace BARMAN_STORE1._0.Include
                 dtg.DataSource = dataView;//datatable;
 
                
-                //funct.ResponsiveDtg(dtg);
-                //dtg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                //dtg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                funct.ResponsiveDtg(dtg);
+                dtg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dtg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
                 
                 

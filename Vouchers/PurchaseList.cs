@@ -31,33 +31,28 @@ namespace BARMAN_STORE1._0.Vouchers
             button1_Click(sender, e);
 
             config.fiil_CBOX("select distinct(voucher_no) from voucher", billnoComboBox);
-            //billnoComboBox.Items.Add("ALL");
+            
             config.fiil_CBOX("select distinct(party_name) from voucher", partynameComboBox);
-            //partynameComboBox.Items.Add("ALL");
+            
             config.fiil_CBOX("select distinct (FORMAT(voucher_amount, '0.00')) from voucher", billamountComboBox);
-            //billamountComboBox.Items.Add("ALL");
+            
             config.fiil_CBOX("select distinct(FORMAT(voucher_date, 'dd-MM-yyyy')) from voucher", billdateComboBox);
-            //billdateComboBox.Items.Add("ALL");
+            
             config.fiil_CBOX("select distinct(FORMAT(voucher_duedate, 'dd-MM-yyyy')) from voucher", duedateComboBox);
-            //duedateComboBox.Items.Add("ALL");
+            
             config.fiil_CBOX("select distinct(voucher_type) from voucher", typeComboBox);
-            //typeComboBox.Items.Add("ALL");
+            
             config.fiil_CBOX(@"select distinct(FORMAT(voucher_amount-COALESCE((SELECT sum(trans_amount) from 
             [transaction] where voucher_no=[voucher].voucher_no),0), '0.00')) 
             From VOUCHER ", pendingComboBox);
             billnoComboBox.SelectedItem = partynameComboBox.SelectedItem = billamountComboBox.SelectedItem = billdateComboBox.SelectedItem = duedateComboBox.SelectedItem = pendingComboBox.SelectedItem = typeComboBox.SelectedItem = "*ALL";
-            //billnoComboBox.SelectedItem = "*ALL";
-            //billamountTxtBox.DataBindings.Add("Text", config.dataView, "BILL AMOUNT", true); 
-            //billdateTxtBox.DataBindings.Add("Text", config.dataView, "BILL DATE", true);
-            //duedateTxtBox.DataBindings.Add("Text", config.dataView, "DUE DATE", true);
-            //pendingTxtBox.DataBindings.Add("Text", config.dataView, "AMOUNT pending", true); 
-            //typeTxtBox.DataBindings.Add("Text", config.dataView, "TYPE", true); 
+            
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            VoucherForm voucherForm = new VoucherForm((int)dataGridView1.CurrentRow.Cells[0].Value);
-            //VoucherForm voucherForm = new VoucherForm(-500);
+            //VoucherForm voucherForm = new VoucherForm((int)dataGridView1.CurrentRow.Cells[0].Value);
+            VoucherForm voucherForm = new VoucherForm(-500);
 
             voucherForm.EditMode(false);
 

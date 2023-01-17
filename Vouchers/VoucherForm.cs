@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -149,7 +151,9 @@ namespace BARMAN_STORE1._0.Vouchers
                     config.CExecute_CUD(sql, "Unable to Update", "Data has been Updated in the database.");
                 }
                 EditMode(false);
-
+                sql = @"select id from voucher where voucher_no='" + voucher_no+"'";
+                config.singleResult(sql);
+                voucher_id=config.datatable.Rows[0].Field<int>(0);
 
             }
             catch (Exception ex)
@@ -163,25 +167,15 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void voucher_duedateTextBox_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                voucher_duedateTextBox.Text = string.Format("{0:dd-MM-yyyy}", DateTime.Parse(voucher_duedateTextBox.Text));
-
-            }
-            catch (Exception ex)
-            {
-            }
+            DateTime val;
+            if (DateTime.TryParse(voucher_duedateTextBox.Text, out val)) voucher_duedateTextBox.Text = val.ToString("dd-MM-yyyy");
+            
         }
 
         private void voucher_dateTextBox_TextChanged(object sender, EventArgs e)
         {
-            try {
-                voucher_dateTextBox.Text = string.Format("{0:dd-MM-yyyy}", DateTime.Parse(voucher_dateTextBox.Text));
-
-            }
-            catch (Exception ex) 
-            {
-            }
+            DateTime val;
+            if (DateTime.TryParse(voucher_dateTextBox.Text, out val)) voucher_dateTextBox.Text = val.ToString("dd-MM-yyyy");
         }
 
        
@@ -231,7 +225,17 @@ namespace BARMAN_STORE1._0.Vouchers
             }
 
         }
-
+        private void LoadImage()
+        {
+            if (voucher_id == null || voucher_id == -500) return;
+            pictureBox1.Visible = true;
+            button1.Visible = true;
+            button2.Visible = true;
+            string sql = "select voucher_img from voucher where id=" + voucher_id;
+            pictureBox1.DataBindings.Clear();
+            config.singleResult(sql);
+            pictureBox1.DataBindings.Add("Image", config.datatable, "voucher_img", true,DataSourceUpdateMode.Never);
+        }
         private void LoadTransaction()
         {
             string sql = @"select RIGHT('0000000' + CAST(id AS VARCHAR), 7) as 'TRANSACTION ID',voucher_no AS 'BILL NO',
@@ -245,21 +249,7 @@ namespace BARMAN_STORE1._0.Vouchers
             partynameTextBox.Text= party_name;
             cashCheckBox.Checked=true;
         }
-            private void tabControl1_TabIndexChanged(object sender, EventArgs e)
-        {
-            if(tabControl1.SelectedTab == detailTab) LoadDetails();
-            if(tabControl1.SelectedTab==transactionTab) LoadTransaction();
-            if (tabControl1.SelectedTab == imageTab)
-               
-            {
-               
-                    string sql = "select voucher_img from voucher where id=" + voucher_id;
-                    pictureBox1.DataBindings.Clear();
-                    config.singleResult(sql);
-                    pictureBox1.DataBindings.Add("Image", config.datatable, "voucher_img",true);
-               
-            }
-        }
+            
 
         private void amount_pendingTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -276,7 +266,10 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            tabControl1_TabIndexChanged(sender, e);
+            if (tabControl1.SelectedTab == detailTab) LoadDetails();
+            if (tabControl1.SelectedTab == transactionTab) LoadTransaction();
+            if (tabControl1.SelectedTab == imageTab) LoadImage();
+
         }
 
         private void voucher_amountTextBox_Validating(object sender, CancelEventArgs e)
@@ -383,6 +376,54 @@ namespace BARMAN_STORE1._0.Vouchers
             TransactionDialogForm frm = new TransactionDialogForm(billnoTextBox.Text, party_nameTextBox.Text, voucher_type, amountTextBox.Text,dateTextBox.Text, chqpartyTextBox.Text, chqbankTextBox.Text, chqnoTextBox.Text, chqdateTextBox.Text, upiphonenoTextBox.Text, upiidTextBox.Text, upitrnoTextBox.Text, upidateTextBox.Text,paymentmode);
                                                                
             frm.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
+            OpenFileDialog1.Filter = "Picture Files (*)|*.bmp;*.gif;*.jpg";
+            if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox1.Image = Image.FromFile(OpenFileDialog1.FileName);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int result;
+                byte[] imageData;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
+                    imageData = ms.ToArray();
+                }
+
+                using (SqlConnection connection = new SqlConnection(config.MyConnectionString()))
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("update voucher set voucher_img=@Image where id=@id", connection);
+                    cmd.Parameters.AddWithValue("@Image", imageData);
+                    cmd.Parameters.AddWithValue("@id", voucher_id);
+                    result=cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                if (result > 0)
+                {
+                    MessageBox.Show("Data has been Updated in the database.");
+                }
+                else
+                {
+                    MessageBox.Show("Unable to Update");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            
         }
     }
 }
