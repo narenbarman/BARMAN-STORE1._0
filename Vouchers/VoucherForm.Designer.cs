@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label idLabel;
             System.Windows.Forms.Label voucher_noLabel;
             System.Windows.Forms.Label party_nameLabel;
@@ -37,8 +36,45 @@
             System.Windows.Forms.Label voucher_duedateLabel;
             System.Windows.Forms.Label voucher_typeLabel;
             System.Windows.Forms.Label label1;
+            System.Windows.Forms.Label voucher_noLabel1;
+            System.Windows.Forms.Label party_nameLabel1;
+            System.Windows.Forms.Label trans_amountLabel;
+            System.Windows.Forms.Label chq_dateLabel;
+            System.Windows.Forms.Label chq_partyLabel;
+            System.Windows.Forms.Label chq_bankLabel;
+            System.Windows.Forms.Label chq_noLabel;
+            System.Windows.Forms.Label chq_dateLabel1;
+            System.Windows.Forms.Label label2;
+            System.Windows.Forms.Label label3;
+            System.Windows.Forms.Label label4;
+            System.Windows.Forms.Label label5;
             this.transactionTab = new System.Windows.Forms.TabPage();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.submitButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chqPanel = new System.Windows.Forms.Panel();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.chqdateTextBox = new System.Windows.Forms.TextBox();
+            this.chqnoTextBox = new System.Windows.Forms.TextBox();
+            this.chqbankTextBox = new System.Windows.Forms.TextBox();
+            this.chqpartyTextBox = new System.Windows.Forms.TextBox();
+            this.upiCheckBox = new System.Windows.Forms.CheckBox();
+            this.chqCheckBox = new System.Windows.Forms.CheckBox();
+            this.cashCheckBox = new System.Windows.Forms.CheckBox();
+            this.upiPanel = new System.Windows.Forms.Panel();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.upidateTextBox = new System.Windows.Forms.TextBox();
+            this.upiidTextBox = new System.Windows.Forms.TextBox();
+            this.upitrnoTextBox = new System.Windows.Forms.TextBox();
+            this.upiphonenoTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTextBox = new System.Windows.Forms.TextBox();
+            this.amountTextBox = new System.Windows.Forms.TextBox();
+            this.partynameTextBox = new System.Windows.Forms.TextBox();
+            this.billnoTextBox = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.imageTab = new System.Windows.Forms.TabPage();
@@ -62,9 +98,6 @@
             this.voucher_noTextBox = new System.Windows.Forms.TextBox();
             this.voucher_amountTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.userDatabaseDataSet = new BARMAN_STORE1._0.UserDatabaseDataSet();
-            this.voucherBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.voucherTableAdapter = new BARMAN_STORE1._0.UserDatabaseDataSetTableAdapters.voucherTableAdapter();
             idLabel = new System.Windows.Forms.Label();
             voucher_noLabel = new System.Windows.Forms.Label();
             party_nameLabel = new System.Windows.Forms.Label();
@@ -73,7 +106,25 @@
             voucher_duedateLabel = new System.Windows.Forms.Label();
             voucher_typeLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
+            voucher_noLabel1 = new System.Windows.Forms.Label();
+            party_nameLabel1 = new System.Windows.Forms.Label();
+            trans_amountLabel = new System.Windows.Forms.Label();
+            chq_dateLabel = new System.Windows.Forms.Label();
+            chq_partyLabel = new System.Windows.Forms.Label();
+            chq_bankLabel = new System.Windows.Forms.Label();
+            chq_noLabel = new System.Windows.Forms.Label();
+            chq_dateLabel1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
             this.transactionTab.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.chqPanel.SuspendLayout();
+            this.upiPanel.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.imageTab.SuspendLayout();
@@ -83,8 +134,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.userDatabaseDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voucherBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // idLabel
@@ -168,9 +217,117 @@
             label1.TabIndex = 14;
             label1.Text = "AMOUNT PENDING";
             // 
+            // voucher_noLabel1
+            // 
+            voucher_noLabel1.AutoSize = true;
+            voucher_noLabel1.Location = new System.Drawing.Point(476, 22);
+            voucher_noLabel1.Name = "voucher_noLabel1";
+            voucher_noLabel1.Size = new System.Drawing.Size(61, 17);
+            voucher_noLabel1.TabIndex = 0;
+            voucher_noLabel1.Text = "BILL NO";
+            // 
+            // party_nameLabel1
+            // 
+            party_nameLabel1.AutoSize = true;
+            party_nameLabel1.Location = new System.Drawing.Point(476, 56);
+            party_nameLabel1.Name = "party_nameLabel1";
+            party_nameLabel1.Size = new System.Drawing.Size(97, 17);
+            party_nameLabel1.TabIndex = 2;
+            party_nameLabel1.Text = "PARTY NAME";
+            // 
+            // trans_amountLabel
+            // 
+            trans_amountLabel.AutoSize = true;
+            trans_amountLabel.Location = new System.Drawing.Point(6, 16);
+            trans_amountLabel.Name = "trans_amountLabel";
+            trans_amountLabel.Size = new System.Drawing.Size(90, 17);
+            trans_amountLabel.TabIndex = 6;
+            trans_amountLabel.Text = "AMOUNT(rs)";
+            // 
+            // chq_dateLabel
+            // 
+            chq_dateLabel.AutoSize = true;
+            chq_dateLabel.Location = new System.Drawing.Point(6, 53);
+            chq_dateLabel.Name = "chq_dateLabel";
+            chq_dateLabel.Size = new System.Drawing.Size(45, 17);
+            chq_dateLabel.TabIndex = 8;
+            chq_dateLabel.Text = "DATE";
+            // 
+            // chq_partyLabel
+            // 
+            chq_partyLabel.AutoSize = true;
+            chq_partyLabel.Location = new System.Drawing.Point(6, 1);
+            chq_partyLabel.Name = "chq_partyLabel";
+            chq_partyLabel.Size = new System.Drawing.Size(159, 17);
+            chq_partyLabel.TabIndex = 0;
+            chq_partyLabel.Text = "CHEQUE PARTY NAME";
+            // 
+            // chq_bankLabel
+            // 
+            chq_bankLabel.AutoSize = true;
+            chq_bankLabel.Location = new System.Drawing.Point(6, 46);
+            chq_bankLabel.Name = "chq_bankLabel";
+            chq_bankLabel.Size = new System.Drawing.Size(88, 17);
+            chq_bankLabel.TabIndex = 2;
+            chq_bankLabel.Text = "BANK NAME";
+            // 
+            // chq_noLabel
+            // 
+            chq_noLabel.AutoSize = true;
+            chq_noLabel.Location = new System.Drawing.Point(596, 46);
+            chq_noLabel.Name = "chq_noLabel";
+            chq_noLabel.Size = new System.Drawing.Size(91, 17);
+            chq_noLabel.TabIndex = 4;
+            chq_noLabel.Text = "CHEQUE NO";
+            // 
+            // chq_dateLabel1
+            // 
+            chq_dateLabel1.AutoSize = true;
+            chq_dateLabel1.Location = new System.Drawing.Point(593, 1);
+            chq_dateLabel1.Name = "chq_dateLabel1";
+            chq_dateLabel1.Size = new System.Drawing.Size(107, 17);
+            chq_dateLabel1.TabIndex = 6;
+            chq_dateLabel1.Text = "CHEQUE DATE";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(396, 1);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(45, 17);
+            label2.TabIndex = 6;
+            label2.Text = "DATE";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(399, 46);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(47, 17);
+            label3.TabIndex = 4;
+            label3.Text = "UPI ID";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(6, 46);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(211, 17);
+            label4.TabIndex = 2;
+            label4.Text = "TRANSACTION NO(OPTIONAL)";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(6, 1);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(108, 17);
+            label5.TabIndex = 0;
+            label5.Text = "UPI PHONE NO";
+            // 
             // transactionTab
             // 
-            this.transactionTab.Controls.Add(this.panel4);
+            this.transactionTab.Controls.Add(this.tableLayoutPanel1);
             this.transactionTab.Controls.Add(this.panel3);
             this.transactionTab.Location = new System.Drawing.Point(4, 25);
             this.transactionTab.Margin = new System.Windows.Forms.Padding(4);
@@ -181,13 +338,272 @@
             this.transactionTab.Text = "Transaction";
             this.transactionTab.UseVisualStyleBackColor = true;
             // 
-            // panel4
+            // tableLayoutPanel1
             // 
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(4, 156);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(775, 257);
-            this.panel4.TabIndex = 1;
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 156);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(775, 257);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.submitButton);
+            this.groupBox3.Controls.Add(this.cancelButton);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(3, 229);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(769, 25);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            // 
+            // submitButton
+            // 
+            this.submitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.submitButton.Location = new System.Drawing.Point(287, -1);
+            this.submitButton.Name = "submitButton";
+            this.submitButton.Size = new System.Drawing.Size(94, 27);
+            this.submitButton.TabIndex = 1;
+            this.submitButton.Text = "PROCEED";
+            this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cancelButton.Location = new System.Drawing.Point(380, -2);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(94, 27);
+            this.cancelButton.TabIndex = 0;
+            this.cancelButton.Text = "CANCEL";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.chqPanel);
+            this.groupBox2.Controls.Add(this.upiCheckBox);
+            this.groupBox2.Controls.Add(this.chqCheckBox);
+            this.groupBox2.Controls.Add(this.cashCheckBox);
+            this.groupBox2.Controls.Add(this.upiPanel);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 93);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(769, 130);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "PAYMENT MODE";
+            // 
+            // chqPanel
+            // 
+            this.chqPanel.Controls.Add(this.dateTimePicker2);
+            this.chqPanel.Controls.Add(this.chqdateTextBox);
+            this.chqPanel.Controls.Add(chq_dateLabel1);
+            this.chqPanel.Controls.Add(chq_noLabel);
+            this.chqPanel.Controls.Add(this.chqnoTextBox);
+            this.chqPanel.Controls.Add(chq_bankLabel);
+            this.chqPanel.Controls.Add(this.chqbankTextBox);
+            this.chqPanel.Controls.Add(chq_partyLabel);
+            this.chqPanel.Controls.Add(this.chqpartyTextBox);
+            this.chqPanel.Location = new System.Drawing.Point(0, 22);
+            this.chqPanel.Name = "chqPanel";
+            this.chqPanel.Size = new System.Drawing.Size(769, 108);
+            this.chqPanel.TabIndex = 3;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker2.Location = new System.Drawing.Point(735, 22);
+            this.dateTimePicker2.MaxDate = new System.DateTime(2100, 12, 31, 0, 0, 0, 0);
+            this.dateTimePicker2.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(18, 23);
+            this.dateTimePicker2.TabIndex = 9;
+            // 
+            // chqdateTextBox
+            // 
+            this.chqdateTextBox.Location = new System.Drawing.Point(600, 22);
+            this.chqdateTextBox.Name = "chqdateTextBox";
+            this.chqdateTextBox.ReadOnly = true;
+            this.chqdateTextBox.Size = new System.Drawing.Size(133, 23);
+            this.chqdateTextBox.TabIndex = 8;
+            // 
+            // chqnoTextBox
+            // 
+            this.chqnoTextBox.Location = new System.Drawing.Point(599, 66);
+            this.chqnoTextBox.Name = "chqnoTextBox";
+            this.chqnoTextBox.Size = new System.Drawing.Size(160, 23);
+            this.chqnoTextBox.TabIndex = 5;
+            // 
+            // chqbankTextBox
+            // 
+            this.chqbankTextBox.Location = new System.Drawing.Point(9, 66);
+            this.chqbankTextBox.Name = "chqbankTextBox";
+            this.chqbankTextBox.Size = new System.Drawing.Size(564, 23);
+            this.chqbankTextBox.TabIndex = 3;
+            // 
+            // chqpartyTextBox
+            // 
+            this.chqpartyTextBox.Location = new System.Drawing.Point(9, 21);
+            this.chqpartyTextBox.Name = "chqpartyTextBox";
+            this.chqpartyTextBox.Size = new System.Drawing.Size(564, 23);
+            this.chqpartyTextBox.TabIndex = 1;
+            // 
+            // upiCheckBox
+            // 
+            this.upiCheckBox.AutoSize = true;
+            this.upiCheckBox.Location = new System.Drawing.Point(330, 2);
+            this.upiCheckBox.Name = "upiCheckBox";
+            this.upiCheckBox.Size = new System.Drawing.Size(49, 21);
+            this.upiCheckBox.TabIndex = 2;
+            this.upiCheckBox.Text = "UPI";
+            this.upiCheckBox.UseVisualStyleBackColor = true;
+            this.upiCheckBox.CheckedChanged += new System.EventHandler(this.upiCheckBox_CheckedChanged);
+            // 
+            // chqCheckBox
+            // 
+            this.chqCheckBox.AutoSize = true;
+            this.chqCheckBox.Location = new System.Drawing.Point(233, 2);
+            this.chqCheckBox.Name = "chqCheckBox";
+            this.chqCheckBox.Size = new System.Drawing.Size(85, 21);
+            this.chqCheckBox.TabIndex = 1;
+            this.chqCheckBox.Text = "CHEQUE";
+            this.chqCheckBox.UseVisualStyleBackColor = true;
+            this.chqCheckBox.CheckedChanged += new System.EventHandler(this.chqCheckBox_CheckedChanged);
+            // 
+            // cashCheckBox
+            // 
+            this.cashCheckBox.AutoSize = true;
+            this.cashCheckBox.Location = new System.Drawing.Point(159, 2);
+            this.cashCheckBox.Name = "cashCheckBox";
+            this.cashCheckBox.Size = new System.Drawing.Size(64, 21);
+            this.cashCheckBox.TabIndex = 0;
+            this.cashCheckBox.Text = "CASH";
+            this.cashCheckBox.UseVisualStyleBackColor = true;
+            this.cashCheckBox.CheckedChanged += new System.EventHandler(this.cashCheckBox_CheckedChanged_1);
+            // 
+            // upiPanel
+            // 
+            this.upiPanel.Controls.Add(this.dateTimePicker3);
+            this.upiPanel.Controls.Add(this.upidateTextBox);
+            this.upiPanel.Controls.Add(label2);
+            this.upiPanel.Controls.Add(label3);
+            this.upiPanel.Controls.Add(this.upiidTextBox);
+            this.upiPanel.Controls.Add(label4);
+            this.upiPanel.Controls.Add(this.upitrnoTextBox);
+            this.upiPanel.Controls.Add(label5);
+            this.upiPanel.Controls.Add(this.upiphonenoTextBox);
+            this.upiPanel.Location = new System.Drawing.Point(0, 22);
+            this.upiPanel.Name = "upiPanel";
+            this.upiPanel.Size = new System.Drawing.Size(769, 108);
+            this.upiPanel.TabIndex = 8;
+            // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker3.Location = new System.Drawing.Point(677, 21);
+            this.dateTimePicker3.MaxDate = new System.DateTime(2100, 12, 31, 0, 0, 0, 0);
+            this.dateTimePicker3.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(18, 23);
+            this.dateTimePicker3.TabIndex = 9;
+            // 
+            // upidateTextBox
+            // 
+            this.upidateTextBox.Location = new System.Drawing.Point(402, 21);
+            this.upidateTextBox.Name = "upidateTextBox";
+            this.upidateTextBox.ReadOnly = true;
+            this.upidateTextBox.Size = new System.Drawing.Size(269, 23);
+            this.upidateTextBox.TabIndex = 8;
+            // 
+            // upiidTextBox
+            // 
+            this.upiidTextBox.Location = new System.Drawing.Point(402, 66);
+            this.upiidTextBox.Name = "upiidTextBox";
+            this.upiidTextBox.Size = new System.Drawing.Size(297, 23);
+            this.upiidTextBox.TabIndex = 5;
+            // 
+            // upitrnoTextBox
+            // 
+            this.upitrnoTextBox.Location = new System.Drawing.Point(9, 66);
+            this.upitrnoTextBox.Name = "upitrnoTextBox";
+            this.upitrnoTextBox.Size = new System.Drawing.Size(343, 23);
+            this.upitrnoTextBox.TabIndex = 3;
+            // 
+            // upiphonenoTextBox
+            // 
+            this.upiphonenoTextBox.Location = new System.Drawing.Point(9, 21);
+            this.upiphonenoTextBox.Name = "upiphonenoTextBox";
+            this.upiphonenoTextBox.Size = new System.Drawing.Size(343, 23);
+            this.upiphonenoTextBox.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.dateTextBox);
+            this.groupBox1.Controls.Add(chq_dateLabel);
+            this.groupBox1.Controls.Add(trans_amountLabel);
+            this.groupBox1.Controls.Add(this.amountTextBox);
+            this.groupBox1.Controls.Add(party_nameLabel1);
+            this.groupBox1.Controls.Add(this.partynameTextBox);
+            this.groupBox1.Controls.Add(voucher_noLabel1);
+            this.groupBox1.Controls.Add(this.billnoTextBox);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(769, 84);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(306, 49);
+            this.dateTimePicker1.MaxDate = new System.DateTime(2100, 12, 31, 0, 0, 0, 0);
+            this.dateTimePicker1.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(18, 23);
+            this.dateTimePicker1.TabIndex = 11;
+            // 
+            // dateTextBox
+            // 
+            this.dateTextBox.Location = new System.Drawing.Point(112, 49);
+            this.dateTextBox.Name = "dateTextBox";
+            this.dateTextBox.Size = new System.Drawing.Size(188, 23);
+            this.dateTextBox.TabIndex = 10;
+            // 
+            // amountTextBox
+            // 
+            this.amountTextBox.Location = new System.Drawing.Point(112, 13);
+            this.amountTextBox.Name = "amountTextBox";
+            this.amountTextBox.Size = new System.Drawing.Size(211, 23);
+            this.amountTextBox.TabIndex = 7;
+            this.amountTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.amountTextBox_Validating);
+            // 
+            // partynameTextBox
+            // 
+            this.partynameTextBox.Location = new System.Drawing.Point(576, 53);
+            this.partynameTextBox.Name = "partynameTextBox";
+            this.partynameTextBox.ReadOnly = true;
+            this.partynameTextBox.Size = new System.Drawing.Size(178, 23);
+            this.partynameTextBox.TabIndex = 3;
+            // 
+            // billnoTextBox
+            // 
+            this.billnoTextBox.Location = new System.Drawing.Point(576, 19);
+            this.billnoTextBox.Name = "billnoTextBox";
+            this.billnoTextBox.ReadOnly = true;
+            this.billnoTextBox.Size = new System.Drawing.Size(178, 23);
+            this.billnoTextBox.TabIndex = 1;
             // 
             // panel3
             // 
@@ -464,20 +880,6 @@
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             this.tabControl1.TabIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
             // 
-            // userDatabaseDataSet
-            // 
-            this.userDatabaseDataSet.DataSetName = "UserDatabaseDataSet";
-            this.userDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // voucherBindingSource
-            // 
-            this.voucherBindingSource.DataMember = "voucher";
-            this.voucherBindingSource.DataSource = this.userDatabaseDataSet;
-            // 
-            // voucherTableAdapter
-            // 
-            this.voucherTableAdapter.ClearBeforeFill = true;
-            // 
             // VoucherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -490,6 +892,16 @@
             this.Text = "Voucher";
             this.Load += new System.EventHandler(this.Voucher_Load);
             this.transactionTab.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.chqPanel.ResumeLayout(false);
+            this.chqPanel.PerformLayout();
+            this.upiPanel.ResumeLayout(false);
+            this.upiPanel.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.imageTab.ResumeLayout(false);
@@ -500,8 +912,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.userDatabaseDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voucherBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -527,14 +937,36 @@
         private System.Windows.Forms.ComboBox voucher_typeTextBox;
         private System.Windows.Forms.TextBox voucher_duedateTextBox;
         private System.Windows.Forms.TextBox voucher_dateTextBox;
-        private UserDatabaseDataSet userDatabaseDataSet;
-        private System.Windows.Forms.BindingSource voucherBindingSource;
-        private UserDatabaseDataSetTableAdapters.voucherTableAdapter voucherTableAdapter;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox upiCheckBox;
+        private System.Windows.Forms.CheckBox chqCheckBox;
+        private System.Windows.Forms.CheckBox cashCheckBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel chqPanel;
+        private System.Windows.Forms.TextBox chqnoTextBox;
+        private System.Windows.Forms.TextBox chqbankTextBox;
+        private System.Windows.Forms.TextBox chqpartyTextBox;
+        private System.Windows.Forms.TextBox amountTextBox;
+        private System.Windows.Forms.TextBox partynameTextBox;
+        private System.Windows.Forms.TextBox billnoTextBox;
+        private System.Windows.Forms.Button submitButton;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Panel upiPanel;
+        private System.Windows.Forms.TextBox upiidTextBox;
+        private System.Windows.Forms.TextBox upitrnoTextBox;
+        private System.Windows.Forms.TextBox upiphonenoTextBox;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.TextBox dateTextBox;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.TextBox chqdateTextBox;
+        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.TextBox upidateTextBox;
     }
 }

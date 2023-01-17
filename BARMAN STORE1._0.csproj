@@ -48,7 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -90,6 +92,12 @@
     <Compile Include="Vouchers\PurchaseList.Designer.cs">
       <DependentUpon>PurchaseList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vouchers\TransactionDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vouchers\TransactionDialogForm.Designer.cs">
+      <DependentUpon>TransactionDialogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vouchers\VoucherForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vouchers\PurchaseList.resx">
       <DependentUpon>PurchaseList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vouchers\TransactionDialogForm.resx">
+      <DependentUpon>TransactionDialogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vouchers\VoucherForm.resx">
       <DependentUpon>VoucherForm.cs</DependentUpon>

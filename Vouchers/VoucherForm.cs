@@ -31,11 +31,14 @@ namespace BARMAN_STORE1._0.Vouchers
             config.fiil_CBO("select party_name from party", party_nameTextBox);
             voucher_dateDateTimePicker.DataBindings.Add("Value", voucher_dateTextBox, "Text", true, DataSourceUpdateMode.OnPropertyChanged, "null", string.Format("dd-MM-yyyy"));
             voucher_duedateDateTimePicker.DataBindings.Add("Value", voucher_duedateTextBox, "Text", true, DataSourceUpdateMode.OnPropertyChanged, "null", string.Format("dd-MM-yyyy"));
-
+            dateTextBox.DataBindings.Add("Text", dateTimePicker1, "Text");
+            chqdateTextBox.DataBindings.Add("Text", dateTimePicker2, "Text");
+            upidateTextBox.DataBindings.Add("Text", dateTimePicker3, "Text");
         }
 
         private void Voucher_Load(object sender, EventArgs e)
         {
+            
             LoadDetails();
             
         }
@@ -236,6 +239,11 @@ namespace BARMAN_STORE1._0.Vouchers
                         from [transaction]
                         WHERE voucher_no='" + voucher_no+"'";
             config.Load_DTG(sql,dataGridView2);
+            amountTextBox.Text = amount_pending.ToString();
+            if (!string.IsNullOrEmpty(amountTextBox.Text)) amountTextBox.Text =double.Parse(amountTextBox.Text).ToString("0.00");
+            billnoTextBox.Text = voucher_no;
+            partynameTextBox.Text= party_name;
+            cashCheckBox.Checked=true;
         }
             private void tabControl1_TabIndexChanged(object sender, EventArgs e)
         {
@@ -284,6 +292,97 @@ namespace BARMAN_STORE1._0.Vouchers
             {
                 voucher_amountTextBox.ForeColor = Color.Red;
             }
+        }
+
+       
+
+        private void cashCheckBox_CheckedChanged_1(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            if (checkbox.Checked)
+            {
+                chqCheckBox.Checked = false;
+                upiCheckBox.Checked = false;
+                chqPanel.Visible = false;
+                upiPanel.Visible = false;
+                chqbankTextBox.Text = "";
+                chqdateTextBox.Text = "";
+                chqnoTextBox.Text = "";
+                chqpartyTextBox.Text = "";
+                upidateTextBox.Text = "";
+                upiidTextBox.Text = "";
+                upiphonenoTextBox.Text = "";
+                upitrnoTextBox.Text = "";
+            }
+        }
+
+        private void chqCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            if (checkbox.Checked)
+            {
+                cashCheckBox.Checked = false;
+                upiCheckBox.Checked = false;
+                chqPanel.Visible = true;
+                upiPanel.Visible = false;
+                chqbankTextBox.Text = "";
+                chqdateTextBox.Text = "";
+                chqnoTextBox.Text = "";
+                chqpartyTextBox.Text = "";
+                upidateTextBox.Text = "";
+                upiidTextBox.Text = "";
+                upiphonenoTextBox.Text = "";
+                upitrnoTextBox.Text = "";
+            }
+        }
+
+        private void upiCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            if (checkbox.Checked)
+            {
+                chqCheckBox.Checked = false;
+                cashCheckBox.Checked = false;
+                chqPanel.Visible = false;
+                upiPanel.Visible = true;
+                chqbankTextBox.Text = "";
+                chqdateTextBox.Text = "";
+                chqnoTextBox.Text = "";
+                chqpartyTextBox.Text = "";
+                upidateTextBox.Text = "";
+                upiidTextBox.Text = "";
+                upiphonenoTextBox.Text = "";
+                upitrnoTextBox.Text = "";
+            }
+        }
+
+        private void amountTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            double val;
+            if(double.TryParse(amountTextBox.Text,out val))
+            {
+                amountTextBox.Text = val.ToString("0.00");
+            }
+        }
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(billnoTextBox.Text))
+                return;
+            double val;
+            if (!double.TryParse(amountTextBox.Text, out val))
+            {
+                amountTextBox.Focus();
+                return;
+            }
+            string paymentmode;
+            if (cashCheckBox.Checked) paymentmode = "cash";
+            else if (chqCheckBox.Checked) paymentmode = "cheque";
+            else if (upiCheckBox.Checked) paymentmode = "upi";
+            else paymentmode = "none";
+            TransactionDialogForm frm = new TransactionDialogForm(billnoTextBox.Text, party_nameTextBox.Text, voucher_type, amountTextBox.Text,dateTextBox.Text, chqpartyTextBox.Text, chqbankTextBox.Text, chqnoTextBox.Text, chqdateTextBox.Text, upiphonenoTextBox.Text, upiidTextBox.Text, upitrnoTextBox.Text, upidateTextBox.Text,paymentmode);
+                                                               
+            frm.Show();
         }
     }
 }
