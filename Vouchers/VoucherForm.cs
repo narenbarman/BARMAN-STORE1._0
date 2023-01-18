@@ -62,7 +62,7 @@ namespace BARMAN_STORE1._0.Vouchers
             saveButton.Visible = ans;
             modifyButton.Visible = !ans;
             amount_pendingTextBox.Visible = !ans;
-            //voucher_amountTextBox.Text = string.Format(voucher_amountTextBox.Text);
+            
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -83,6 +83,11 @@ namespace BARMAN_STORE1._0.Vouchers
             if (string.IsNullOrEmpty(voucher_dateTextBox.Text))
             {
                 voucher_dateTextBox.Focus(); return;
+            }
+            if (DateTime.Parse(voucher_duedateTextBox.Text) >= DateTime.Parse(voucher_duedateTextBox.Text))
+            {
+                voucher_duedateTextBox.Focus();
+                return;
             }
             double outval;
             if (string.IsNullOrEmpty(voucher_amountTextBox.Text)||!double.TryParse(voucher_amountTextBox.Text,out outval))
@@ -110,13 +115,15 @@ namespace BARMAN_STORE1._0.Vouchers
                 voucher_no = voucher_noTextBox.Text;
                 party_name = party_nameTextBox.Text;
                 voucher_amount = double.Parse(voucher_amountTextBox.Text);
-                if (DateTime.TryParse(voucher_dateTextBox.Text, out x)) 
+                if (DateTime.TryParse(voucher_dateTextBox.Text, out x))
                 {
-                    voucher_date =  DateTime.Parse(voucher_dateTextBox.Text); 
-                    
-                } 
-                else 
+                    voucher_date = DateTime.Parse(voucher_dateTextBox.Text);
+
+                }
+                else
+                {
                     voucher_date = null;
+                }
                
                 if (DateTime.TryParse(voucher_duedateTextBox.Text, out x)) 
                 {
@@ -154,7 +161,7 @@ namespace BARMAN_STORE1._0.Vouchers
                 sql = @"select id from voucher where voucher_no='" + voucher_no+"'";
                 config.singleResult(sql);
                 voucher_id=config.datatable.Rows[0].Field<int>(0);
-
+                Voucher_Load(sender, e);
             }
             catch (Exception ex)
             {

@@ -63,6 +63,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Distributors\DistributorEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Distributors\DistributorEditForm.Designer.cs">
+      <DependentUpon>DistributorEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Distributors\DistributorsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Distributors\DistributorsForm.Designer.cs">
+      <DependentUpon>DistributorsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Distributors\PartiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Distributors\PartiesForm.Designer.cs">
+      <DependentUpon>PartiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Distributors\PartyEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Distributors\PartyEditForm.Designer.cs">
+      <DependentUpon>PartyEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +128,18 @@
     <Compile Include="Vouchers\VoucherForm.Designer.cs">
       <DependentUpon>VoucherForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Distributors\DistributorEditForm.resx">
+      <DependentUpon>DistributorEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distributors\DistributorsForm.resx">
+      <DependentUpon>DistributorsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distributors\PartiesForm.resx">
+      <DependentUpon>PartiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distributors\PartyEditForm.resx">
+      <DependentUpon>PartyEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,8 +214,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder3\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

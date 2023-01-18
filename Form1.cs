@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BARMAN_STORE1._0.Distributors;
 
 namespace BARMAN_STORE1._0
 {
@@ -134,6 +135,44 @@ namespace BARMAN_STORE1._0
         {
             closeForm();
             showFrm(new PurchaseList());
+        }
+
+        private void nEWToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VoucherForm form = new VoucherForm(-500);
+            form.EditMode(true);
+            form.Show();
+        }
+
+        private void pARTYToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PartiesForm form = new PartiesForm();
+            showFrm(form);
+        }
+
+        private void nEWToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            PartyEditForm form = new PartyEditForm(-500);
+            form.EditMode(true);
+            form.Show();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            this.ActiveMdiChild.Refresh();
+        }
+
+        private void dISTRIBUTORSToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DistributorsForm form=new DistributorsForm();
+            showFrm(form);
+        }
+
+        private void nEWToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DistributorEditForm form = new DistributorEditForm(-500);
+            form.EditMode(true);
+            form.Show();
         }
     }
 }

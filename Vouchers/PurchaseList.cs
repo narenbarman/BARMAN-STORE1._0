@@ -51,8 +51,8 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            //VoucherForm voucherForm = new VoucherForm((int)dataGridView1.CurrentRow.Cells[0].Value);
-            VoucherForm voucherForm = new VoucherForm(-500);
+            VoucherForm voucherForm = new VoucherForm((int)dataGridView1.CurrentRow.Cells[0].Value);
+            //VoucherForm voucherForm = new VoucherForm(-500);
 
             voucherForm.EditMode(false);
 
@@ -87,25 +87,7 @@ namespace BARMAN_STORE1._0.Vouchers
             time = 0;
         }
 
-        private void dataGridView1_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
-        {
-            if (e.Column.Index == 0) //sort by the first column
-            {
-                e.SortResult = int.Parse(e.CellValue1.ToString()).CompareTo(int.Parse(e.CellValue2.ToString()));
-            }
-            else
-            {
-                e.SortResult = e.CellValue1.ToString().CompareTo(e.CellValue2.ToString());
-            }
-
-            e.Handled = true;
-        }
-
-        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            dataGridView1.Sort(dataGridView1.Columns[e.ColumnIndex], ListSortDirection.Ascending);
-        }
-
+        
         private void billnoTextBox_TextChanged(object sender, EventArgs e)
         {
 

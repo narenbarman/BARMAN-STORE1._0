@@ -23,16 +23,44 @@
     <TableUISetting Name="voucher">
       <ColumnUISettings>
         <ColumnUISetting Name="voucher_date">
+          <ControlSettings><ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+              <BindableControlInfo Name="TextBox" Type="System.Windows.Forms.TextBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+            </ControlSetting></ControlSettings>
+        </ColumnUISetting>
+        <ColumnUISetting Name="voucher_duedate">
+          <ControlSettings><ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+              <BindableControlInfo Name="TextBox" Type="System.Windows.Forms.TextBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+            </ControlSetting></ControlSettings>
+        </ColumnUISetting>
+      </ColumnUISettings>
+    </TableUISetting>
+    <TableUISetting Name="party">
+      <ColumnUISettings>
+        <ColumnUISetting Name="distributor">
           <ControlSettings>
             <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
-              <BindableControlInfo Name="TextBox" Type="System.Windows.Forms.TextBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+              <BindableControlInfo Name="ComboBox" Type="System.Windows.Forms.ComboBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
             </ControlSetting>
           </ControlSettings>
         </ColumnUISetting>
-        <ColumnUISetting Name="voucher_duedate">
+        <ColumnUISetting Name="visiting_day">
           <ControlSettings>
             <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
-              <BindableControlInfo Name="TextBox" Type="System.Windows.Forms.TextBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+              <BindableControlInfo Name="ComboBox" Type="System.Windows.Forms.ComboBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+            </ControlSetting>
+          </ControlSettings>
+        </ColumnUISetting>
+        <ColumnUISetting Name="delivery_day">
+          <ControlSettings>
+            <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+              <BindableControlInfo Name="ComboBox" Type="System.Windows.Forms.ComboBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+            </ControlSetting>
+          </ControlSettings>
+        </ColumnUISetting>
+        <ColumnUISetting Name="credit_duration">
+          <ControlSettings>
+            <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+              <BindableControlInfo Name="ComboBox" Type="System.Windows.Forms.ComboBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
             </ControlSetting>
           </ControlSettings>
         </ColumnUISetting>
