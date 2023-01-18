@@ -50,37 +50,7 @@ namespace BARMAN_STORE1._0.Distributors
 
         private void PartyEditForm_Load(object sender, EventArgs e)
         {
-            
-            string sql = @"select id,
-                          party_name,
-                          distributor,
-                          salesman_name,
-                          salesman_cont,
-                          salesman_email,
-                          visiting_day,
-                          delivery_day,
-                          credit_duration
-                          from party where id=" + partyid;
-            config.singleResult(sql);
-            if (config.datatable.Rows.Count > 0) 
-            {
-                party_name = config.datatable.Rows[0].Field<string>("party_name");
-                distributor = config.datatable.Rows[0].Field<string>("distributor");
-                salesman_name = config.datatable.Rows[0].Field<string>("salesman_name");
-                salesman_cont = config.datatable.Rows[0].Field<string>("salesman_cont");
-                salesman_email = config.datatable.Rows[0].Field<string>("salesman_email");
-                visiting_day = config.datatable.Rows[0].Field<string>("visiting_day");
-                delivery_day = config.datatable.Rows[0].Field<string>("delivery_day");
-                credit_duration = config.datatable.Rows[0].Field<string>("credit_duration");
-            }
-            party_nameTextBox.Text = party_name;
-            distributorComboBox.Text = distributor;
-            salesman_nameTextBox.Text = salesman_name;
-            salesman_contTextBox.Text = salesman_cont;
-            salesman_emailTextBox.Text = salesman_email;
-            visiting_dayComboBox.Text = visiting_day;
-            delivery_dayComboBox.Text = delivery_day;
-            credit_durationComboBox.Text = credit_duration;
+            LoadRecord();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -109,22 +79,68 @@ namespace BARMAN_STORE1._0.Distributors
             visiting_day=visiting_dayComboBox.Text ;
             delivery_day=delivery_dayComboBox.Text ;
             credit_duration=credit_durationComboBox.Text ;
+            SaveRecord();
+            LoadRecord();
+            EditMode(false);
+        }
+        private void SaveRecord()
+        {
+            string sql;
             if (partyid == -500)
             {
-                string sql = @"insert into party (party_name,distributor,salesman_name,salesman_cont,salesman_email,visiting_day,delivery_day,credit_duration)
-                          values ('" + party_name + "','" + distributor + "','" + salesman_name + "','" + salesman_cont + "','" + salesman_email + "','" + visiting_day + "','" + delivery_day + "','" + credit_duration + "')" ;
-                config.CExecute_CUD(sql, "Unable to Update", "Data has been Updated in the database.");
+                sql = @"insert into party (party_name,distributor,salesman_name,salesman_cont,salesman_email,visiting_day,delivery_day,credit_duration)
+                          values ('" + party_name + "','" + distributor + "','" + salesman_name + "','" + salesman_cont + "','" + salesman_email + "','" + visiting_day + "','" + delivery_day + "','" + credit_duration + "')";
+
             }
             else
             {
-                string sql = @"update party set party_name='" + party_name + "',distributor='"+distributor+"',salesman_name='"+salesman_name + "',salesman_cont='" + salesman_cont + "',salesman_email='" + salesman_email + "',visiting_day='" + visiting_day + "',delivery_day='" + delivery_day + "',credit_duration='" + credit_duration+"' where id=" + partyid;
-                config.CExecute_CUD(sql, "Unable to Update", "Data has been Updated in the database.");
+                sql = @"update party set party_name='" + party_name + "',distributor='" + distributor + "',salesman_name='" + salesman_name + "',salesman_cont='" + salesman_cont + "',salesman_email='" + salesman_email + "',visiting_day='" + visiting_day + "',delivery_day='" + delivery_day + "',credit_duration='" + credit_duration + "' where id=" + partyid;
+
 
             }
+            config.singleResult("select dist_name from distributor where dist_name='" + distributor + "'");
+            if (!(config.datatable.Rows.Count > 0))
+            {
+                sql = "insert into distributor (dist_name) values ('" + distributor + "'); " + sql;
+            }
+            MessageBox.Show(sql + config.datatable.Rows.Count);
+            config.CExecute_CUD(sql, "Unable to Update", "Data has been Updated in the database.");
             config.singleResult("select id from party where party_name='" + party_nameTextBox.Text + "'");
             partyid = config.datatable.Rows[0].Field<int>("id");
-            PartyEditForm_Load(sender, e);
-            EditMode(false);
+        }
+        private void LoadRecord()
+        {
+            string sql = @"select id,
+                          party_name,
+                          distributor,
+                          salesman_name,
+                          salesman_cont,
+                          salesman_email,
+                          visiting_day,
+                          delivery_day,
+                          credit_duration
+                          from party where id=" + partyid;
+            config.singleResult(sql);
+            if (config.datatable.Rows.Count > 0)
+            {
+                party_name = config.datatable.Rows[0].Field<string>("party_name");
+                distributor = config.datatable.Rows[0].Field<string>("distributor");
+                salesman_name = config.datatable.Rows[0].Field<string>("salesman_name");
+                salesman_cont = config.datatable.Rows[0].Field<string>("salesman_cont");
+                salesman_email = config.datatable.Rows[0].Field<string>("salesman_email");
+                visiting_day = config.datatable.Rows[0].Field<string>("visiting_day");
+                delivery_day = config.datatable.Rows[0].Field<string>("delivery_day");
+                credit_duration = config.datatable.Rows[0].Field<string>("credit_duration");
+            }
+            config.fiil_CBO("select dist_name from distributor", distributorComboBox);
+            party_nameTextBox.Text = party_name;
+            distributorComboBox.Text = distributor;
+            salesman_nameTextBox.Text = salesman_name;
+            salesman_contTextBox.Text = salesman_cont;
+            salesman_emailTextBox.Text = salesman_email;
+            visiting_dayComboBox.Text = visiting_day;
+            delivery_dayComboBox.Text = delivery_day;
+            credit_durationComboBox.Text = credit_duration;
         }
     }
 }

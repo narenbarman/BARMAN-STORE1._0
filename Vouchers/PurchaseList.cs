@@ -17,7 +17,6 @@ namespace BARMAN_STORE1._0.Vouchers
     public partial class PurchaseList : Form
     {
         SQLConfig config = new SQLConfig();
-        usableFunction funct = new usableFunction();
         string selectallsql;
         public PurchaseList()
         {
@@ -52,8 +51,7 @@ namespace BARMAN_STORE1._0.Vouchers
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             VoucherForm voucherForm = new VoucherForm((int)dataGridView1.CurrentRow.Cells[0].Value);
-            //VoucherForm voucherForm = new VoucherForm(-500);
-
+            
             voucherForm.EditMode(false);
 
             voucherForm.Show();
@@ -80,7 +78,7 @@ namespace BARMAN_STORE1._0.Vouchers
             ,FORMAT(voucher_amount-COALESCE((SELECT sum(trans_amount) from 
             [transaction] where voucher_no=[voucher].voucher_no),0), '0.00') 
             as 'AMOUNT PENDING',voucher_type as 'TYPE' From VOUCHER ";
-            //config.Load_DTG("Select id as 'ID',voucher_no as 'BILL NO',party_name as 'PARTY NAME',voucher_amount as 'BILL AMOUNT',VOUCHER_DATE AS 'BILL DATE',VOUCHER_DUEDATE AS 'DUE DATE',voucher_amount-COALESCE((SELECT sum(trans_amount) from [transaction] where voucher_no=[voucher].voucher_no),0) as 'AMOUNT PENDING' From VOUCHER where voucher_type='payment'", dataGridView1);
+            
 
             config.Load_DTG(selectallsql, dataGridView1);
             dataGridView1.Columns[0].Visible = false;
@@ -88,20 +86,6 @@ namespace BARMAN_STORE1._0.Vouchers
         }
 
         
-        private void billnoTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-            //config.dataView.RowFilter = "[PARTY NAME] LIKE '%"+ partynameTxtBox.Text+"%' and [BILL NO] LIKE '%"+ billnoTextBox.Text+"%'";
-            /*
-                        config.dataView.RowFilter = @"" + string.Format("[BILL NO] LIKE '%{0}%'", billnoTextBox.Text) + " and "
-                                                        + string.Format("[PARTY NAME] LIKE '%{0}%'", partynameTextBox.Text) + " and "
-                                                        + string.Format("[BILL AMOUNT] LIKE '%{0}%'", billamountTextBox.Text) + " and "
-                                                        //+ string.Format("[BILL DATE] = '{0}'", billdateTextBox.Text) + " and "
-                                                        //+ string.Format("[DUE DATE] = '{0}'", duedateTextBox.Text) + " and "
-                                                        + string.Format("[AMOUNT PENDING] LIKE '%{0}%'", pendingTextBox.Text) + " and "
-                                                        + string.Format("[TYPE] LIKE '%{0}%'", typeTextBox.Text) ;*/
-        }
-
         private void billnoComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             config.dataView.RowFilter = @"" + string.Format("[BILL NO] LIKE '%{0}%'", billnoComboBox.Text) + " and "
@@ -120,17 +104,7 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void button2_Click(object sender, EventArgs e)
         {
-            /*
-            DateTime? duedat = null;// DateTime.Parse( duedateComboBox.Text) as DateTime?;
-            config.dataView.RowFilter = @"" + string.Format("[BILL NO] LIKE '%{0}%'", billnoComboBox.Text) + " and "
-                                            + string.Format("[PARTY NAME] LIKE '%{0}%'", partynameComboBox.Text) + " and "
-                                            + string.Format("[BILL AMOUNT] LIKE '%{0}%'", billamountComboBox.Text) + " and "
-                                            + "[BILL DATE].ToString = '%" + billdateComboBox.Text + "%' and "
-                                            + "[DUE DATE].ToString = '%" + duedateComboBox.Text + "%' and "
-                                            + string.Format("[AMOUNT PENDING] LIKE '%{0}%'", pendingComboBox.Text) + " and "
-                                            + string.Format("[TYPE] LIKE '%{0}%'", typeComboBox.Text);
-            string.Format("[voucher_duedate] LIKE '%{0}%'", duedateComboBox.Text)
-            */
+           
             string billnoFilter,partynameFilter, billamountFilter, billdateFilter, duedateFilter, amountpendingFilter, typeFilter;
             if (string.IsNullOrEmpty(billnoComboBox.Text))
             {

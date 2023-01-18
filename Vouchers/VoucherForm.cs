@@ -176,7 +176,6 @@ namespace BARMAN_STORE1._0.Vouchers
         {
             DateTime val;
             if (DateTime.TryParse(voucher_duedateTextBox.Text, out val)) voucher_duedateTextBox.Text = val.ToString("dd-MM-yyyy");
-            
         }
 
         private void voucher_dateTextBox_TextChanged(object sender, EventArgs e)
@@ -206,7 +205,6 @@ namespace BARMAN_STORE1._0.Vouchers
                 voucher_amount = config.datatable.Rows[0].Field<double>(3);
                 voucher_date = config.datatable.Rows[0][4] as DateTime?;
                 voucher_duedate = config.datatable.Rows[0][5] as DateTime?;
-
                 amount_pending = config.datatable.Rows[0].Field<double>(6);
                 voucher_type = config.datatable.Rows[0].Field<string>(7);
             }
@@ -223,7 +221,6 @@ namespace BARMAN_STORE1._0.Vouchers
             if (double.TryParse(voucher_amountTextBox.Text, out number))
             {
                 voucher_amountTextBox.ForeColor = Color.Black;
-                //number = Math.Round(number, 2);
                 voucher_amountTextBox.Text = number.ToString("0.00");
             }
             else
@@ -285,7 +282,6 @@ namespace BARMAN_STORE1._0.Vouchers
             if (double.TryParse(voucher_amountTextBox.Text, out number))
             {
                 voucher_amountTextBox.ForeColor = Color.Black;
-                //number = Math.Round(number, 2);
                 voucher_amountTextBox.Text = number.ToString("0.00");
             }
             else
