@@ -78,8 +78,9 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.imageTab = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.scanButton = new System.Windows.Forms.Button();
+            this.saveimgButton = new System.Windows.Forms.Button();
+            this.browseButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.detailTab = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -98,6 +99,8 @@
             this.voucher_noTextBox = new System.Windows.Forms.TextBox();
             this.voucher_amountTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             idLabel = new System.Windows.Forms.Label();
             voucher_noLabel = new System.Windows.Forms.Label();
             party_nameLabel = new System.Windows.Forms.Label();
@@ -134,6 +137,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // idLabel
@@ -634,47 +639,55 @@
             // 
             // imageTab
             // 
-            this.imageTab.Controls.Add(this.button2);
-            this.imageTab.Controls.Add(this.button1);
-            this.imageTab.Controls.Add(this.pictureBox1);
+            this.imageTab.Controls.Add(this.tableLayoutPanel2);
             this.imageTab.Location = new System.Drawing.Point(4, 25);
             this.imageTab.Margin = new System.Windows.Forms.Padding(4);
             this.imageTab.Name = "imageTab";
             this.imageTab.Padding = new System.Windows.Forms.Padding(4);
-            this.imageTab.Size = new System.Drawing.Size(783, 417);
+            this.imageTab.Size = new System.Drawing.Size(783, 527);
             this.imageTab.TabIndex = 1;
             this.imageTab.Text = "Image";
             this.imageTab.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // scanButton
             // 
-            this.button2.Location = new System.Drawing.Point(664, 173);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "SAVE";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.scanButton.Location = new System.Drawing.Point(18, 96);
+            this.scanButton.Name = "scanButton";
+            this.scanButton.Size = new System.Drawing.Size(75, 23);
+            this.scanButton.TabIndex = 3;
+            this.scanButton.Text = "SCAN";
+            this.scanButton.UseVisualStyleBackColor = true;
+            this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
             // 
-            // button1
+            // saveimgButton
             // 
-            this.button1.Location = new System.Drawing.Point(664, 131);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "BROWSE";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.saveimgButton.Location = new System.Drawing.Point(13, 178);
+            this.saveimgButton.Name = "saveimgButton";
+            this.saveimgButton.Size = new System.Drawing.Size(75, 23);
+            this.saveimgButton.TabIndex = 2;
+            this.saveimgButton.Text = "SAVE";
+            this.saveimgButton.UseVisualStyleBackColor = true;
+            this.saveimgButton.Visible = false;
+            this.saveimgButton.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // browseButton
+            // 
+            this.browseButton.Location = new System.Drawing.Point(13, 253);
+            this.browseButton.Name = "browseButton";
+            this.browseButton.Size = new System.Drawing.Size(75, 23);
+            this.browseButton.TabIndex = 1;
+            this.browseButton.Text = "BROWSE";
+            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Visible = false;
+            this.browseButton.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(153, 3);
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(434, 411);
+            this.pictureBox1.Size = new System.Drawing.Size(669, 513);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -878,15 +891,43 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(791, 446);
+            this.tabControl1.Size = new System.Drawing.Size(791, 556);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox4, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(775, 519);
+            this.tableLayoutPanel2.TabIndex = 4;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.scanButton);
+            this.groupBox4.Controls.Add(this.browseButton);
+            this.groupBox4.Controls.Add(this.saveimgButton);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(678, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(94, 513);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "groupBox4";
             // 
             // VoucherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(791, 446);
+            this.ClientSize = new System.Drawing.Size(791, 556);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -914,6 +955,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -968,7 +1011,10 @@
         private System.Windows.Forms.TextBox chqdateTextBox;
         private System.Windows.Forms.DateTimePicker dateTimePicker3;
         private System.Windows.Forms.TextBox upidateTextBox;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button saveimgButton;
+        private System.Windows.Forms.Button browseButton;
+        private System.Windows.Forms.Button scanButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
