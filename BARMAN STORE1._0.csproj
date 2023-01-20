@@ -152,6 +152,7 @@
     <Compile Include="Vouchers\PurchaseList.Designer.cs">
       <DependentUpon>PurchaseList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vouchers\ScanItem.cs" />
     <Compile Include="Vouchers\TransactionDialogForm.cs">
       <SubType>Form</SubType>
     </Compile>

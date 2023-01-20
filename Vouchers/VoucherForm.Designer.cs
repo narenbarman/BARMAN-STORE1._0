@@ -78,10 +78,12 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.imageTab = new System.Windows.Forms.TabPage();
-            this.scanButton = new System.Windows.Forms.Button();
-            this.saveimgButton = new System.Windows.Forms.Button();
-            this.browseButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.scanButton = new System.Windows.Forms.Button();
+            this.browseButton = new System.Windows.Forms.Button();
+            this.saveimgButton = new System.Windows.Forms.Button();
             this.detailTab = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -99,8 +101,6 @@
             this.voucher_noTextBox = new System.Windows.Forms.TextBox();
             this.voucher_amountTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             idLabel = new System.Windows.Forms.Label();
             voucher_noLabel = new System.Windows.Forms.Label();
             party_nameLabel = new System.Windows.Forms.Label();
@@ -131,14 +131,14 @@
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.imageTab.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.detailTab.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // idLabel
@@ -338,7 +338,7 @@
             this.transactionTab.Margin = new System.Windows.Forms.Padding(4);
             this.transactionTab.Name = "transactionTab";
             this.transactionTab.Padding = new System.Windows.Forms.Padding(4);
-            this.transactionTab.Size = new System.Drawing.Size(783, 417);
+            this.transactionTab.Size = new System.Drawing.Size(783, 527);
             this.transactionTab.TabIndex = 2;
             this.transactionTab.Text = "Transaction";
             this.transactionTab.UseVisualStyleBackColor = true;
@@ -358,7 +358,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(775, 257);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(775, 367);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // groupBox3
@@ -366,7 +366,7 @@
             this.groupBox3.Controls.Add(this.submitButton);
             this.groupBox3.Controls.Add(this.cancelButton);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 229);
+            this.groupBox3.Location = new System.Drawing.Point(3, 339);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(769, 25);
             this.groupBox3.TabIndex = 2;
@@ -401,9 +401,9 @@
             this.groupBox2.Controls.Add(this.cashCheckBox);
             this.groupBox2.Controls.Add(this.upiPanel);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 93);
+            this.groupBox2.Location = new System.Drawing.Point(3, 137);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(769, 130);
+            this.groupBox2.Size = new System.Drawing.Size(769, 196);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "PAYMENT MODE";
@@ -565,7 +565,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(769, 84);
+            this.groupBox1.Size = new System.Drawing.Size(769, 128);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -649,37 +649,20 @@
             this.imageTab.Text = "Image";
             this.imageTab.UseVisualStyleBackColor = true;
             // 
-            // scanButton
+            // tableLayoutPanel2
             // 
-            this.scanButton.Location = new System.Drawing.Point(18, 96);
-            this.scanButton.Name = "scanButton";
-            this.scanButton.Size = new System.Drawing.Size(75, 23);
-            this.scanButton.TabIndex = 3;
-            this.scanButton.Text = "SCAN";
-            this.scanButton.UseVisualStyleBackColor = true;
-            this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
-            // 
-            // saveimgButton
-            // 
-            this.saveimgButton.Location = new System.Drawing.Point(13, 178);
-            this.saveimgButton.Name = "saveimgButton";
-            this.saveimgButton.Size = new System.Drawing.Size(75, 23);
-            this.saveimgButton.TabIndex = 2;
-            this.saveimgButton.Text = "SAVE";
-            this.saveimgButton.UseVisualStyleBackColor = true;
-            this.saveimgButton.Visible = false;
-            this.saveimgButton.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // browseButton
-            // 
-            this.browseButton.Location = new System.Drawing.Point(13, 253);
-            this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(75, 23);
-            this.browseButton.TabIndex = 1;
-            this.browseButton.Text = "BROWSE";
-            this.browseButton.UseVisualStyleBackColor = true;
-            this.browseButton.Visible = false;
-            this.browseButton.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox4, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(775, 519);
+            this.tableLayoutPanel2.TabIndex = 4;
             // 
             // pictureBox1
             // 
@@ -694,6 +677,54 @@
             this.pictureBox1.Visible = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.scanButton);
+            this.groupBox4.Controls.Add(this.browseButton);
+            this.groupBox4.Controls.Add(this.saveimgButton);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox4.Location = new System.Drawing.Point(678, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(94, 513);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            // 
+            // scanButton
+            // 
+            this.scanButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.scanButton.Location = new System.Drawing.Point(0, 149);
+            this.scanButton.Name = "scanButton";
+            this.scanButton.Size = new System.Drawing.Size(93, 41);
+            this.scanButton.TabIndex = 3;
+            this.scanButton.Text = "SCAN";
+            this.scanButton.UseVisualStyleBackColor = true;
+            this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
+            // 
+            // browseButton
+            // 
+            this.browseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.browseButton.Location = new System.Drawing.Point(0, 111);
+            this.browseButton.Name = "browseButton";
+            this.browseButton.Size = new System.Drawing.Size(93, 41);
+            this.browseButton.TabIndex = 1;
+            this.browseButton.Text = "BROWSE";
+            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Visible = false;
+            this.browseButton.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // saveimgButton
+            // 
+            this.saveimgButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveimgButton.Location = new System.Drawing.Point(0, 189);
+            this.saveimgButton.Name = "saveimgButton";
+            this.saveimgButton.Size = new System.Drawing.Size(93, 41);
+            this.saveimgButton.TabIndex = 2;
+            this.saveimgButton.Text = "SAVE";
+            this.saveimgButton.UseVisualStyleBackColor = true;
+            this.saveimgButton.Visible = false;
+            this.saveimgButton.Click += new System.EventHandler(this.button2_Click);
+            // 
             // detailTab
             // 
             this.detailTab.Controls.Add(this.panel2);
@@ -702,7 +733,7 @@
             this.detailTab.Margin = new System.Windows.Forms.Padding(4);
             this.detailTab.Name = "detailTab";
             this.detailTab.Padding = new System.Windows.Forms.Padding(4);
-            this.detailTab.Size = new System.Drawing.Size(783, 417);
+            this.detailTab.Size = new System.Drawing.Size(783, 527);
             this.detailTab.TabIndex = 0;
             this.detailTab.Text = "Details";
             this.detailTab.UseVisualStyleBackColor = true;
@@ -714,7 +745,7 @@
             this.panel2.Location = new System.Drawing.Point(4, 184);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(775, 229);
+            this.panel2.Size = new System.Drawing.Size(775, 339);
             this.panel2.TabIndex = 15;
             // 
             // dataGridView1
@@ -723,7 +754,7 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(775, 229);
+            this.dataGridView1.Size = new System.Drawing.Size(775, 339);
             this.dataGridView1.TabIndex = 0;
             // 
             // panel1
@@ -895,34 +926,6 @@
             this.tabControl1.TabIndex = 1;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox4, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 4);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(775, 519);
-            this.tableLayoutPanel2.TabIndex = 4;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.scanButton);
-            this.groupBox4.Controls.Add(this.browseButton);
-            this.groupBox4.Controls.Add(this.saveimgButton);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(678, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(94, 513);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox4";
-            // 
             // VoucherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -948,15 +951,15 @@
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.imageTab.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
             this.detailTab.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

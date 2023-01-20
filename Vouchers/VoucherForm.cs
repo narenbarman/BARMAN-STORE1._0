@@ -26,7 +26,7 @@ namespace BARMAN_STORE1._0.Vouchers
         private double? voucher_amount;
         private double? amount_pending;
         SQLConfig config = new SQLConfig();
-        
+
         public VoucherForm(int voucherid)
         {
             InitializeComponent();
@@ -41,9 +41,9 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void Voucher_Load(object sender, EventArgs e)
         {
-            
+
             LoadDetails();
-            
+
         }
 
         internal void modifyButton_Click(object sender, EventArgs e)
@@ -63,7 +63,7 @@ namespace BARMAN_STORE1._0.Vouchers
             saveButton.Visible = ans;
             modifyButton.Visible = !ans;
             amount_pendingTextBox.Visible = !ans;
-            
+
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -91,7 +91,7 @@ namespace BARMAN_STORE1._0.Vouchers
                 return;
             }
             double outval;
-            if (string.IsNullOrEmpty(voucher_amountTextBox.Text)||!double.TryParse(voucher_amountTextBox.Text,out outval))
+            if (string.IsNullOrEmpty(voucher_amountTextBox.Text) || !double.TryParse(voucher_amountTextBox.Text, out outval))
             {
                 voucher_amountTextBox.Focus(); return;
             }
@@ -125,43 +125,44 @@ namespace BARMAN_STORE1._0.Vouchers
                 {
                     voucher_date = null;
                 }
-               
-                if (DateTime.TryParse(voucher_duedateTextBox.Text, out x)) 
+
+                if (DateTime.TryParse(voucher_duedateTextBox.Text, out x))
                 {
-                    voucher_duedate = DateTime.Parse(voucher_duedateTextBox.Text); 
-                } else 
+                    voucher_duedate = DateTime.Parse(voucher_duedateTextBox.Text);
+                }
+                else
                     voucher_duedate = null;
 
-                
+
                 voucher_type = voucher_typeTextBox.Text;
                 string sql;
-                
+
                 if (voucher_id == -500)
                 {
                     sql = @"insert into [voucher] 
                           (voucher_no,party_name,voucher_amount,voucher_date,voucher_duedate,voucher_type) 
-                          values ('" + voucher_no + "','" + party_name + "'," + voucher_amount + "," 
-                          + "CONVERT(date, '" + voucher_date + "', 103) ," 
+                          values ('" + voucher_no + "','" + party_name + "'," + voucher_amount + ","
+                          + "CONVERT(date, '" + voucher_date + "', 103) ,"
                           + "CONVERT(date, '" + voucher_date + "', 103) ,'" + voucher_type + "')";
                     config.CExecute_CUD(sql, "Unable to saved", "Data has been saved in the database.");
-                    
+
                 }
-                
+
                 else
                 {
-                    sql = @"update [voucher] set voucher_no='"+ voucher_no 
-                          + "',party_name='" + party_name + "',voucher_amount=" +  voucher_amount.ToString() 
-                          + ",voucher_date= CONVERT(date, '"+voucher_date+"', 103) " 
+                    sql = @"update [voucher] set voucher_no='" + voucher_no
+                          + "',party_name='" + party_name + "',voucher_amount=" + voucher_amount.ToString()
+                          + ",voucher_date= CONVERT(date, '" + voucher_date + "', 103) "
                           + ",voucher_duedate= CONVERT(date, '" + voucher_duedate + "', 103) "
                           + ",voucher_type='" + voucher_type + "' where id=" + voucher_id + "; " +
                           "update [transaction] set voucher_no='" + voucher_no + "' where voucher_no='" + voucher_no_old + "';";
-                    
+
                     config.CExecute_CUD(sql, "Unable to Update", "Data has been Updated in the database.");
                 }
                 EditMode(false);
-                sql = @"select id from voucher where voucher_no='" + voucher_no+"'";
+                sql = @"select id from voucher where voucher_no='" + voucher_no + "'";
                 config.singleResult(sql);
-                voucher_id=config.datatable.Rows[0].Field<int>(0);
+                voucher_id = config.datatable.Rows[0].Field<int>(0);
                 Voucher_Load(sender, e);
             }
             catch (Exception ex)
@@ -171,7 +172,7 @@ namespace BARMAN_STORE1._0.Vouchers
             }
         }
 
-       
+
 
         private void voucher_duedateTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -185,7 +186,7 @@ namespace BARMAN_STORE1._0.Vouchers
             if (DateTime.TryParse(voucher_dateTextBox.Text, out val)) voucher_dateTextBox.Text = val.ToString("dd-MM-yyyy");
         }
 
-       
+
         private void LoadDetails()
         {
             string sql = @"Select id as 'ID',voucher_no as 'BILL NO',
@@ -239,22 +240,22 @@ namespace BARMAN_STORE1._0.Vouchers
             string sql = "select voucher_img from voucher where id=" + voucher_id;
             pictureBox1.DataBindings.Clear();
             config.singleResult(sql);
-            pictureBox1.DataBindings.Add("Image", config.datatable, "voucher_img", true,DataSourceUpdateMode.Never);
+            pictureBox1.DataBindings.Add("Image", config.datatable, "voucher_img", true, DataSourceUpdateMode.Never);
         }
         private void LoadTransaction()
         {
             string sql = @"select RIGHT('0000000' + CAST(id AS VARCHAR), 7) as 'TRANSACTION ID',voucher_no AS 'BILL NO',
                         FORMAT(trans_amount, '0.00') AS 'AMOUNT(RS)',trans_date as 'TRANSACTION DATE' 
                         from [transaction]
-                        WHERE voucher_no='" + voucher_no+"'";
-            config.Load_DTG(sql,dataGridView2);
+                        WHERE voucher_no='" + voucher_no + "'";
+            config.Load_DTG(sql, dataGridView2);
             amountTextBox.Text = amount_pending.ToString();
-            if (!string.IsNullOrEmpty(amountTextBox.Text)) amountTextBox.Text =double.Parse(amountTextBox.Text).ToString("0.00");
+            if (!string.IsNullOrEmpty(amountTextBox.Text)) amountTextBox.Text = double.Parse(amountTextBox.Text).ToString("0.00");
             billnoTextBox.Text = voucher_no;
-            partynameTextBox.Text= party_name;
-            cashCheckBox.Checked=true;
+            partynameTextBox.Text = party_name;
+            cashCheckBox.Checked = true;
         }
-            
+
 
         private void amount_pendingTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -291,7 +292,7 @@ namespace BARMAN_STORE1._0.Vouchers
             }
         }
 
-       
+
 
         private void cashCheckBox_CheckedChanged_1(object sender, EventArgs e)
         {
@@ -356,7 +357,7 @@ namespace BARMAN_STORE1._0.Vouchers
         private void amountTextBox_Validating(object sender, CancelEventArgs e)
         {
             double val;
-            if(double.TryParse(amountTextBox.Text,out val))
+            if (double.TryParse(amountTextBox.Text, out val))
             {
                 amountTextBox.Text = val.ToString("0.00");
             }
@@ -377,8 +378,8 @@ namespace BARMAN_STORE1._0.Vouchers
             else if (chqCheckBox.Checked) paymentmode = "cheque";
             else if (upiCheckBox.Checked) paymentmode = "upi";
             else paymentmode = "none";
-            TransactionDialogForm frm = new TransactionDialogForm(billnoTextBox.Text, party_nameTextBox.Text, voucher_type, amountTextBox.Text,dateTextBox.Text, chqpartyTextBox.Text, chqbankTextBox.Text, chqnoTextBox.Text, chqdateTextBox.Text, upiphonenoTextBox.Text, upiidTextBox.Text, upitrnoTextBox.Text, upidateTextBox.Text,paymentmode);
-                                                               
+            TransactionDialogForm frm = new TransactionDialogForm(billnoTextBox.Text, party_nameTextBox.Text, voucher_type, amountTextBox.Text, dateTextBox.Text, chqpartyTextBox.Text, chqbankTextBox.Text, chqnoTextBox.Text, chqdateTextBox.Text, upiphonenoTextBox.Text, upiidTextBox.Text, upitrnoTextBox.Text, upidateTextBox.Text, paymentmode);
+
             frm.Show();
         }
 
@@ -410,7 +411,7 @@ namespace BARMAN_STORE1._0.Vouchers
                     SqlCommand cmd = new SqlCommand("update voucher set voucher_img=@Image where id=@id", connection);
                     cmd.Parameters.AddWithValue("@Image", imageData);
                     cmd.Parameters.AddWithValue("@id", voucher_id);
-                    result=cmd.ExecuteNonQuery();
+                    result = cmd.ExecuteNonQuery();
                     connection.Close();
                 }
                 if (result > 0)
@@ -427,94 +428,13 @@ namespace BARMAN_STORE1._0.Vouchers
                 MessageBox.Show(ex.Message);
             }
 
-            
+
         }
 
         private void scanButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Create a new WIA device manager
-                var deviceManager = new DeviceManager();
-                int i;
-                for (i=1;i<=deviceManager.DeviceInfos.Count;i++)
-                {
-                    if (deviceManager.DeviceInfos[i].Type == WiaDeviceType.ScannerDeviceType)
-                    {
-                        break;
-                    }
-                    else
-                        continue;
-                }
-                if (i==deviceManager.DeviceInfos.Count+1)
-                {
-                    MessageBox.Show("Scanner device not found");
-                    return;
-                }
-                // Select the scanner device
-                var device = deviceManager.DeviceInfos[i].Connect();
-
-                // Scan the image
-                CommonDialogClass dlg = new CommonDialogClass();
-                var item = device.Items[1];
-                AdjustScannerSettings(item, 70, 0, 0, 590, 800, -50, 70, 1);
-                var scanitem=dlg.ShowTransfer(device.Items[1], WIA.FormatID.wiaFormatJPEG, true);
-                
-                // Display the image in the PictureBox
-                var imageFile = (ImageFile)scanitem;
-                var imageBytes = (byte[])imageFile.FileData.get_BinaryData();
-                //var pictureBox = new PictureBox();
-                
-                pictureBox1.Image = Image.FromStream(new MemoryStream(imageBytes));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            scanItem scanItem = new scanItem(ref pictureBox1);
         }
-        private static void AdjustScannerSettings(IItem scannnerItem, int scanResolutionDPI, int scanStartLeftPixel, int scanStartTopPixel, int scanWidthPixels, int scanHeightPixels, int brightnessPercents, int contrastPercents, int colorMode)
-        {
-            const string WIA_SCAN_COLOR_MODE = "6146";
-            const string WIA_HORIZONTAL_SCAN_RESOLUTION_DPI = "6147";
-            const string WIA_VERTICAL_SCAN_RESOLUTION_DPI = "6148";
-            const string WIA_HORIZONTAL_SCAN_START_PIXEL = "6149";
-            const string WIA_VERTICAL_SCAN_START_PIXEL = "6150";
-            const string WIA_HORIZONTAL_SCAN_SIZE_PIXELS = "6151";
-            const string WIA_VERTICAL_SCAN_SIZE_PIXELS = "6152";
-            const string WIA_SCAN_BRIGHTNESS_PERCENTS = "6154";
-            const string WIA_SCAN_CONTRAST_PERCENTS = "6155";
-            SetWIAProperty(scannnerItem.Properties, WIA_HORIZONTAL_SCAN_RESOLUTION_DPI, scanResolutionDPI);
-            SetWIAProperty(scannnerItem.Properties, WIA_VERTICAL_SCAN_RESOLUTION_DPI, scanResolutionDPI);
-            SetWIAProperty(scannnerItem.Properties, WIA_HORIZONTAL_SCAN_START_PIXEL, scanStartLeftPixel);
-            SetWIAProperty(scannnerItem.Properties, WIA_VERTICAL_SCAN_START_PIXEL, scanStartTopPixel);
-            SetWIAProperty(scannnerItem.Properties, WIA_HORIZONTAL_SCAN_SIZE_PIXELS, scanWidthPixels);
-            SetWIAProperty(scannnerItem.Properties, WIA_VERTICAL_SCAN_SIZE_PIXELS, scanHeightPixels);
-            SetWIAProperty(scannnerItem.Properties, WIA_SCAN_BRIGHTNESS_PERCENTS, brightnessPercents);
-            SetWIAProperty(scannnerItem.Properties, WIA_SCAN_CONTRAST_PERCENTS, contrastPercents);
-            SetWIAProperty(scannnerItem.Properties, WIA_SCAN_COLOR_MODE, colorMode);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="properties"></param>
-        /// <param name="propName"></param>
-        /// <param name="propValue"></param>
-        private static void SetWIAProperty(IProperties properties, object propName, object propValue)
-        {
-            Property prop = properties.get_Item(ref propName);
-            prop.set_Value(ref propValue);
-        }
-
-        /// <summary>
-        /// Declare the ToString method
-        /// </summary>
-        /// <returns></returns>
-       /* public override string ToString()
-        {
-            return (string)this._deviceInfo.Properties["Name"].get_Value();
-        }
-       */
     }
     
     
