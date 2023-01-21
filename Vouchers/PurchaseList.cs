@@ -54,7 +54,7 @@ namespace BARMAN_STORE1._0.Vouchers
             
             voucherForm.EditMode(false);
 
-            voucherForm.Show();
+            voucherForm.ShowDialog();
         }
 
 

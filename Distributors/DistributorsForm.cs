@@ -58,7 +58,7 @@ namespace BARMAN_STORE1._0.Distributors
         {
             DistributorEditForm form = new DistributorEditForm((int)dataGridView1.CurrentRow.Cells[0].Value);
             form.EditMode(false);
-            form.Show();
+            form.ShowDialog();
         }
     }
 }

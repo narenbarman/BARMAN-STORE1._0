@@ -85,11 +85,16 @@ namespace BARMAN_STORE1._0.Vouchers
             {
                 voucher_dateTextBox.Focus(); return;
             }
+            if (string.IsNullOrEmpty(voucher_duedateTextBox.Text))
+            {
+                voucher_dateTextBox.Focus(); return;
+            }
+            /*
             if (DateTime.Parse(voucher_duedateTextBox.Text) >= DateTime.Parse(voucher_duedateTextBox.Text))
             {
                 voucher_duedateTextBox.Focus();
                 return;
-            }
+            }*/
             double outval;
             if (string.IsNullOrEmpty(voucher_amountTextBox.Text) || !double.TryParse(voucher_amountTextBox.Text, out outval))
             {
@@ -229,8 +234,15 @@ namespace BARMAN_STORE1._0.Vouchers
             {
                 voucher_amountTextBox.ForeColor = Color.Red;
             }
-
+            if (voucher_id > 0)
+            {
+                LoadBill();
+            }
+            panel4.Visible = (voucher_id > 0);
         }
+
+
+
         private void LoadImage()
         {
             if (voucher_id == null || voucher_id == -500) return;
@@ -435,7 +447,237 @@ namespace BARMAN_STORE1._0.Vouchers
         {
             scanItem scanItem = new scanItem(ref pictureBox1);
         }
+        private void BillEditMode(bool ans)
+        {
+            label6.Visible = label7.Visible = label8.Visible = label9.Visible = label10.Visible = label11.Visible = label12.Visible = ans;
+            idcb.Visible = item_namecb.Visible = ratetb.Visible = qtytb.Visible = unitcb.Visible = gsttb.Visible = valuetb.Visible = ans;
+
+            addButton.Visible = ans;
+            label13.Visible = !ans;
+            if (ans == true)
+            {
+                LoadIdCombo();
+                config.fiil_CBO("select item_name from items", item_namecb);
+                string[] unititems = { "PC", "DOZ", "KG", "G" };
+                unitcb.Items.AddRange(unititems);
+            }
+        }
+
+        string dboname;// = "voucher_" + voucher_id;
+        private void LoadBill()
+        {
+            editButton.Text = "EDIT ITEMS";
+            BillEditMode(false);
+            dboname = "voucher_" + voucher_id;
+            string sql = @"if not exists (SELECT * FROM sys.objects  WHERE name = '" + dboname + "')" +
+                        "CREATE TABLE [dbo].[" + dboname + "] " +
+                        "([id] INT IDENTITY (1, 1) NOT NULL," +
+                        "[item_name] NVARCHAR (50) not NULL," +
+                        "[rate] REAL  not NULL," +
+                        "[qty] REAL   not NULL," +
+                        "[gst] REAL        null," +
+                        "[unit] nvarchar(20)    null," +
+                        " PRIMARY KEY CLUSTERED ([id] ASC)); ";
+            config.Execute_Query(sql);
+            LoadRecord(dboname);
+        }
+
+        private void LoadRecord(string dboname)
+        {
+
+            string sql = @"select * from " + dboname;
+            config.singleResult(sql);
+
+            float total = 0;
+            dataGridView1.Rows.Clear();
+            for (int i = 0; i < config.datatable.Rows.Count; i++)
+            {
+                int id = config.datatable.Rows[i].Field<int>("id");
+                string item_name = config.datatable.Rows[i].Field<string>("item_name");
+                float gst = config.datatable.Rows[i].Field<float>("gst");
+                float qty = config.datatable.Rows[i].Field<float>("qty");
+                float rate = config.datatable.Rows[i].Field<float>("rate");
+
+                string unit = config.datatable.Rows[i].Field<string>("unit");
+                float value = rate * qty + (rate * qty * gst / 100);
+                total += value;
+                dataGridView1.Rows.Add(id, item_name, rate, qty, unit, gst, value);
+
+            }
+            dataGridView1.Rows.Add("", "TOTAL", "", "", "", "", total);
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            if (editButton.Text == "EDIT ITEMS")
+            {
+                editButton.Text = "CONFIRM";
+                BillEditMode(true);
+            }
+            else
+            {
+                editButton.Text = "EDIT ITEMS";
+                BillEditMode(false);
+            }
+        }
+
+        private void item_namecb_Validated(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadIdCombo()
+        {
+            config.singleResult("select id from voucher_" + voucher_id);
+            idcb.Items.Clear();
+            for (int i = 0; i <= config.datatable.Rows.Count; i++)
+            {
+                if (i == config.datatable.Rows.Count)
+                {
+                    idcb.Items.Add((config.datatable.Rows.Count + 1).ToString());
+                }
+                else
+                {
+                    idcb.Items.Add(config.datatable.Rows[i].Field<int>("id").ToString());
+                }
+            }
+            idcb.SelectedItem = "1";
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            /*
+            int id;
+            
+            if (!(int.TryParse(ratetb.Text, out id)))
+            {     
+                idcb.Focus(); MessageBox.Show((int.TryParse(ratetb.Text, out id)) + "");              
+                return;
+            }
+            */
+            string item_name = "";
+            if (string.IsNullOrEmpty(item_namecb.Text))
+            {
+                item_namecb.Focus();
+
+                return;
+            }
+            if (string.IsNullOrEmpty(ratetb.Text))
+            {
+                ratetb.Focus();
+                return;
+            }
+            float rate;
+            if (!(float.TryParse(ratetb.Text, out rate)))
+            {
+                ratetb.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(qtytb.Text))
+            {
+                qtytb.Focus();
+                return;
+            }
+            float qty;
+            if (!(float.TryParse(qtytb.Text, out qty)))
+            {
+                qtytb.Focus();
+                return;
+            }
+            string unit = "";
+            if (string.IsNullOrEmpty(unitcb.Text))
+            {
+                unitcb.Focus();
+
+                return;
+            }
+            if (string.IsNullOrEmpty(gsttb.Text))
+            {
+                gsttb.Focus();
+                return;
+            }
+            float gst;
+            if (!(float.TryParse(qtytb.Text, out gst)))
+            {
+                gsttb.Focus();
+                return;
+            }
+            int id = int.Parse(idcb.Text);
+            rate = float.Parse(ratetb.Text);
+            qty = float.Parse(qtytb.Text);
+            gst = float.Parse(gsttb.Text);
+            item_name = item_namecb.Text;
+            unit = unitcb.Text;
+            float value = rate * qty + (rate * qty / 100);
+            string sql = @"if exists (select * from " + dboname + " where id=" + id + ") " +
+                        "begin " +
+                        "update " + dboname + " set " +
+                        "item_name='" + item_name + "'," +
+                        "rate=" + rate + "," +
+                        "qty=" + qty + "," +
+                        "unit='" + unit + "'," +
+                        "gst=" + gst + " where id=" + id + "; " +
+                        "end " +
+                        "else " +
+                        "begin " +
+                        "insert into " + dboname + " (item_name,rate,qty,unit,gst) values ('" + item_name + "'," + rate + "," + qty + ",'" + unit + "'," + gst + ") ;" +
+                        "end;";
+            config.singleResult("select id from items where item_name='" + item_name + "'");
+            if (config.datatable.Rows.Count > 0)
+            {
+                sql = sql + "insert into items (item_name,rate,gst,unit) values ('" + item_name + "'," + rate + "," + gst + ",'" + unit + "');";
+            }
+            config.CExecute_CUD(sql, "Record unable save", "Record updated successfully");
+            LoadIdCombo();
+            LoadRecord(dboname);
+
+
+        }
+
+        private void idcb_Validating(object sender, CancelEventArgs e)
+        {
+            string sql = @"select * from " + dboname + " where id=" + idcb.Text;
+            config.singleResult(sql);
+            if (config.datatable.Rows.Count > 0)
+            {
+                string item_name = config.datatable.Rows[0].Field<string>("item_name");
+                float rate = config.datatable.Rows[0].Field<float>("rate");
+                float gst = config.datatable.Rows[0].Field<float>("gst");
+                string unit = config.datatable.Rows[0].Field<string>("unit");
+                float qty = config.datatable.Rows[0].Field<float>("qty");
+                float value = (rate * qty + (rate * qty * gst / 100));
+                item_namecb.Text = item_name;
+                ratetb.Text = rate.ToString();
+                gsttb.Text = gst.ToString();
+                unitcb.Text = unit;
+                qtytb.Text = qty.ToString();
+                valuetb.Text = value.ToString();
+            }
+            else
+            {
+                item_namecb.Text = "";
+                ratetb.Text = "";
+                gsttb.Text = "";
+                unitcb.Text = "";
+                qtytb.Text = "";
+                valuetb.Text = "";
+            }
+        }
+
+        private void item_namecb_Validating(object sender, CancelEventArgs e)
+        {
+            string sql = @"select * from items where item_name='" + item_namecb.Text + "'";
+            config.singleResult(sql);
+            if (config.datatable.Rows.Count > 0)
+            {
+                ratetb.Text = config.datatable.Rows[0].Field<float>("rate").ToString();
+                gsttb.Text = config.datatable.Rows[0].Field<float>("gst").ToString();
+                unitcb.Text = config.datatable.Rows[0].Field<string>("unit");
+            }
+        }
     }
-    
-    
 }
+    
+    
+    
+

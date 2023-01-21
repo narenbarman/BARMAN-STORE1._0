@@ -141,7 +141,7 @@ namespace BARMAN_STORE1._0
         {
             VoucherForm form = new VoucherForm(-500);
             form.EditMode(true);
-            form.Show();
+            form.ShowDialog();
         }
 
         private void pARTYToolStripMenuItem_Click(object sender, EventArgs e)
@@ -154,7 +154,7 @@ namespace BARMAN_STORE1._0
         {
             PartyEditForm form = new PartyEditForm(-500);
             form.EditMode(true);
-            form.Show();
+            form.ShowDialog();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -172,7 +172,7 @@ namespace BARMAN_STORE1._0
         {
             DistributorEditForm form = new DistributorEditForm(-500);
             form.EditMode(true);
-            form.Show();
+            form.ShowDialog();
         }
     }
 }

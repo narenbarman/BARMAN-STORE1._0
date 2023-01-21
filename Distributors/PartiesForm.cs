@@ -31,7 +31,7 @@ namespace BARMAN_STORE1._0.Distributors
             
             PartyEditForm form = new PartyEditForm((int)dataGridView1.CurrentRow.Cells[0].Value);
             form.EditMode(false);
-            form.Show();
+            form.ShowDialog();
         }
 
         internal void Refresh(object sender, EventArgs e)
