@@ -17,7 +17,7 @@ namespace BARMAN_STORE1._0.Vouchers
         string billno;
         string partyname;
         string transtype;
-        double transamount;
+        float transamount;
         string chqparty;
         string chqbank;
         string chqno;
@@ -29,13 +29,13 @@ namespace BARMAN_STORE1._0.Vouchers
         string paymentmode;
         DateTime? transdate;
 
-        public TransactionDialogForm(string bill_no, string party_name, string trans_type, string trans_amount,string trans_date, string chq_party, string chq_bank, string chq_no, string chq_date, string upi_phone, string upi_id, string upi_trno, string upi_date,string payment_mode)
+        public TransactionDialogForm(string bill_no, string party_name, string trans_type, float trans_amount,string trans_date, string chq_party, string chq_bank, string chq_no, string chq_date, string upi_phone, string upi_id, string upi_trno, string upi_date,string payment_mode)
         {
             InitializeComponent();
             billno = bill_no;
             partyname = party_name;
             transtype = trans_type;
-            transamount =double.Parse(trans_amount);
+            transamount =trans_amount;
             chqparty = chq_party;
             chqbank = chq_bank;
             chqno = chq_no;

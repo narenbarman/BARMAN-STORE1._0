@@ -54,6 +54,7 @@
             this.submitButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.errLabel = new System.Windows.Forms.Label();
             this.chqPanel = new System.Windows.Forms.Panel();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.chqdateTextBox = new System.Windows.Forms.TextBox();
@@ -87,22 +88,15 @@
             this.detailTab = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.item_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gst = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.item_namecb = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.item_namecb = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.valuetb = new System.Windows.Forms.TextBox();
+            this.disctb = new System.Windows.Forms.TextBox();
             this.unitcb = new System.Windows.Forms.ComboBox();
             this.addButton = new System.Windows.Forms.Button();
             this.gsttb = new System.Windows.Forms.TextBox();
@@ -113,12 +107,13 @@
             this.idcb = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.voucher_duedateTextBox = new System.Windows.Forms.TextBox();
             this.voucher_dateTextBox = new System.Windows.Forms.TextBox();
             this.voucher_typeTextBox = new System.Windows.Forms.ComboBox();
             this.voucher_duedateDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.voucher_dateDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.party_nameTextBox = new System.Windows.Forms.ComboBox();
+            this.party_nameComboBox = new System.Windows.Forms.ComboBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.modifyButton = new System.Windows.Forms.Button();
             this.amount_pendingTextBox = new System.Windows.Forms.TextBox();
@@ -126,6 +121,15 @@
             this.voucher_noTextBox = new System.Windows.Forms.TextBox();
             this.voucher_amountTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.mrptb = new System.Windows.Forms.TextBox();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.item_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gst = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.disc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             idLabel = new System.Windows.Forms.Label();
             voucher_noLabel = new System.Windows.Forms.Label();
             party_nameLabel = new System.Windows.Forms.Label();
@@ -271,9 +275,9 @@
             trans_amountLabel.AutoSize = true;
             trans_amountLabel.Location = new System.Drawing.Point(6, 16);
             trans_amountLabel.Name = "trans_amountLabel";
-            trans_amountLabel.Size = new System.Drawing.Size(90, 17);
+            trans_amountLabel.Size = new System.Drawing.Size(97, 17);
             trans_amountLabel.TabIndex = 6;
-            trans_amountLabel.Text = "AMOUNT(rs)";
+            trans_amountLabel.Text = "AMOUNT(RS)";
             // 
             // chq_dateLabel
             // 
@@ -421,6 +425,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.errLabel);
             this.groupBox2.Controls.Add(this.chqPanel);
             this.groupBox2.Controls.Add(this.upiCheckBox);
             this.groupBox2.Controls.Add(this.chqCheckBox);
@@ -433,6 +438,16 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "PAYMENT MODE";
+            // 
+            // errLabel
+            // 
+            this.errLabel.AutoSize = true;
+            this.errLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.errLabel.Location = new System.Drawing.Point(294, 168);
+            this.errLabel.Name = "errLabel";
+            this.errLabel.Size = new System.Drawing.Size(0, 20);
+            this.errLabel.TabIndex = 9;
             // 
             // chqPanel
             // 
@@ -787,10 +802,11 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.item_name,
+            this.mrp,
             this.rate,
             this.qty,
-            this.unit,
             this.gst,
+            this.disc,
             this.value});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -803,62 +819,18 @@
             this.dataGridView1.Size = new System.Drawing.Size(771, 285);
             this.dataGridView1.TabIndex = 2;
             // 
-            // id
-            // 
-            this.id.HeaderText = "SL NO";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.id.Width = 50;
-            // 
-            // item_name
-            // 
-            this.item_name.HeaderText = "ITEM NAME";
-            this.item_name.Name = "item_name";
-            this.item_name.ReadOnly = true;
-            this.item_name.Width = 200;
-            // 
-            // rate
-            // 
-            this.rate.HeaderText = "RATE";
-            this.rate.Name = "rate";
-            this.rate.ReadOnly = true;
-            // 
-            // qty
-            // 
-            this.qty.HeaderText = "QTY";
-            this.qty.Name = "qty";
-            this.qty.ReadOnly = true;
-            // 
-            // unit
-            // 
-            this.unit.HeaderText = "UNIT";
-            this.unit.Name = "unit";
-            this.unit.ReadOnly = true;
-            // 
-            // gst
-            // 
-            this.gst.HeaderText = "GST(%)";
-            this.gst.Name = "gst";
-            this.gst.ReadOnly = true;
-            // 
-            // value
-            // 
-            this.value.HeaderText = "VALUE";
-            this.value.Name = "value";
-            this.value.ReadOnly = true;
-            // 
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.item_namecb);
+            this.panel4.Controls.Add(this.mrptb);
             this.panel4.Controls.Add(this.label13);
+            this.panel4.Controls.Add(this.item_namecb);
             this.panel4.Controls.Add(this.label12);
             this.panel4.Controls.Add(this.label11);
             this.panel4.Controls.Add(this.label10);
             this.panel4.Controls.Add(this.label9);
             this.panel4.Controls.Add(this.label8);
-            this.panel4.Controls.Add(this.valuetb);
+            this.panel4.Controls.Add(this.disctb);
             this.panel4.Controls.Add(this.unitcb);
             this.panel4.Controls.Add(this.addButton);
             this.panel4.Controls.Add(this.gsttb);
@@ -874,6 +846,15 @@
             this.panel4.Size = new System.Drawing.Size(771, 54);
             this.panel4.TabIndex = 0;
             // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("Goudy Stout", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(3, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(10, 52);
+            this.label13.TabIndex = 16;
+            this.label13.Text = "BILL DETAILS";
+            // 
             // item_namecb
             // 
             this.item_namecb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -885,29 +866,19 @@
             this.item_namecb.TabIndex = 17;
             this.item_namecb.Validating += new System.ComponentModel.CancelEventHandler(this.item_namecb_Validating);
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Goudy Stout", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(113, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(520, 52);
-            this.label13.TabIndex = 16;
-            this.label13.Text = "BILL DETAILS";
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(564, 7);
+            this.label12.Location = new System.Drawing.Point(593, 7);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(53, 17);
+            this.label12.Size = new System.Drawing.Size(61, 17);
             this.label12.TabIndex = 15;
-            this.label12.Text = "VALUE";
+            this.label12.Text = "DISC(%)";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(491, 7);
+            this.label11.Location = new System.Drawing.Point(517, 7);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(59, 17);
             this.label11.TabIndex = 14;
@@ -918,35 +889,34 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(431, 7);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 17);
+            this.label10.Size = new System.Drawing.Size(57, 17);
             this.label10.TabIndex = 13;
-            this.label10.Text = "UNIT";
+            this.label10.Text = "QTY(U)";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(345, 7);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 17);
+            this.label9.Size = new System.Drawing.Size(74, 17);
             this.label9.TabIndex = 12;
-            this.label9.Text = "QTY";
+            this.label9.Text = "RATE(RS)";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(262, 7);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(45, 17);
+            this.label8.Size = new System.Drawing.Size(67, 17);
             this.label8.TabIndex = 11;
-            this.label8.Text = "RATE";
+            this.label8.Text = "MRP(RS)";
             // 
-            // valuetb
+            // disctb
             // 
-            this.valuetb.Location = new System.Drawing.Point(567, 27);
-            this.valuetb.Name = "valuetb";
-            this.valuetb.ReadOnly = true;
-            this.valuetb.Size = new System.Drawing.Size(95, 23);
-            this.valuetb.TabIndex = 10;
+            this.disctb.Location = new System.Drawing.Point(596, 27);
+            this.disctb.Name = "disctb";
+            this.disctb.Size = new System.Drawing.Size(70, 23);
+            this.disctb.TabIndex = 10;
             // 
             // unitcb
             // 
@@ -954,9 +924,9 @@
             this.unitcb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.unitcb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.unitcb.FormattingEnabled = true;
-            this.unitcb.Location = new System.Drawing.Point(431, 27);
+            this.unitcb.Location = new System.Drawing.Point(-3, 5);
             this.unitcb.Name = "unitcb";
-            this.unitcb.Size = new System.Drawing.Size(54, 24);
+            this.unitcb.Size = new System.Drawing.Size(12, 24);
             this.unitcb.TabIndex = 9;
             // 
             // addButton
@@ -971,16 +941,16 @@
             // 
             // gsttb
             // 
-            this.gsttb.Location = new System.Drawing.Point(491, 27);
+            this.gsttb.Location = new System.Drawing.Point(517, 27);
             this.gsttb.Name = "gsttb";
             this.gsttb.Size = new System.Drawing.Size(70, 23);
             this.gsttb.TabIndex = 7;
             // 
             // qtytb
             // 
-            this.qtytb.Location = new System.Drawing.Point(348, 27);
+            this.qtytb.Location = new System.Drawing.Point(430, 27);
             this.qtytb.Name = "qtytb";
-            this.qtytb.Size = new System.Drawing.Size(77, 23);
+            this.qtytb.Size = new System.Drawing.Size(70, 23);
             this.qtytb.TabIndex = 6;
             // 
             // label7
@@ -994,9 +964,9 @@
             // 
             // ratetb
             // 
-            this.ratetb.Location = new System.Drawing.Point(265, 27);
+            this.ratetb.Location = new System.Drawing.Point(347, 27);
             this.ratetb.Name = "ratetb";
-            this.ratetb.Size = new System.Drawing.Size(77, 23);
+            this.ratetb.Size = new System.Drawing.Size(70, 23);
             this.ratetb.TabIndex = 3;
             // 
             // editButton
@@ -1032,12 +1002,13 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.errorLabel);
             this.panel1.Controls.Add(this.voucher_duedateTextBox);
             this.panel1.Controls.Add(this.voucher_dateTextBox);
             this.panel1.Controls.Add(this.voucher_typeTextBox);
             this.panel1.Controls.Add(this.voucher_duedateDateTimePicker);
             this.panel1.Controls.Add(this.voucher_dateDateTimePicker);
-            this.panel1.Controls.Add(this.party_nameTextBox);
+            this.panel1.Controls.Add(this.party_nameComboBox);
             this.panel1.Controls.Add(this.saveButton);
             this.panel1.Controls.Add(this.modifyButton);
             this.panel1.Controls.Add(this.amount_pendingTextBox);
@@ -1058,6 +1029,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(771, 180);
             this.panel1.TabIndex = 14;
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.errorLabel.Location = new System.Drawing.Point(136, 159);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(0, 20);
+            this.errorLabel.TabIndex = 24;
             // 
             // voucher_duedateTextBox
             // 
@@ -1100,12 +1081,12 @@
             this.voucher_duedateDateTimePicker.Name = "voucher_duedateDateTimePicker";
             this.voucher_duedateDateTimePicker.Size = new System.Drawing.Size(17, 23);
             this.voucher_duedateDateTimePicker.TabIndex = 20;
-            this.voucher_duedateDateTimePicker.Value = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.voucher_duedateDateTimePicker.Value = new System.DateTime(2023, 1, 25, 0, 0, 0, 0);
             // 
             // voucher_dateDateTimePicker
             // 
             this.voucher_dateDateTimePicker.Enabled = false;
-            this.voucher_dateDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.voucher_dateDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.voucher_dateDateTimePicker.Location = new System.Drawing.Point(700, 20);
             this.voucher_dateDateTimePicker.MaxDate = new System.DateTime(2100, 12, 31, 0, 0, 0, 0);
             this.voucher_dateDateTimePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
@@ -1113,15 +1094,15 @@
             this.voucher_dateDateTimePicker.Size = new System.Drawing.Size(17, 23);
             this.voucher_dateDateTimePicker.TabIndex = 19;
             // 
-            // party_nameTextBox
+            // party_nameComboBox
             // 
-            this.party_nameTextBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.party_nameTextBox.Enabled = false;
-            this.party_nameTextBox.FormattingEnabled = true;
-            this.party_nameTextBox.Location = new System.Drawing.Point(162, 53);
-            this.party_nameTextBox.Name = "party_nameTextBox";
-            this.party_nameTextBox.Size = new System.Drawing.Size(174, 24);
-            this.party_nameTextBox.TabIndex = 18;
+            this.party_nameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.party_nameComboBox.Enabled = false;
+            this.party_nameComboBox.FormattingEnabled = true;
+            this.party_nameComboBox.Location = new System.Drawing.Point(162, 53);
+            this.party_nameComboBox.Name = "party_nameComboBox";
+            this.party_nameComboBox.Size = new System.Drawing.Size(174, 24);
+            this.party_nameComboBox.TabIndex = 18;
             // 
             // saveButton
             // 
@@ -1199,6 +1180,64 @@
             this.tabControl1.TabIndex = 1;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
+            // mrptb
+            // 
+            this.mrptb.Location = new System.Drawing.Point(266, 27);
+            this.mrptb.Name = "mrptb";
+            this.mrptb.Size = new System.Drawing.Size(70, 23);
+            this.mrptb.TabIndex = 18;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "SL NO";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.id.Width = 50;
+            // 
+            // item_name
+            // 
+            this.item_name.HeaderText = "ITEM NAME";
+            this.item_name.Name = "item_name";
+            this.item_name.ReadOnly = true;
+            this.item_name.Width = 200;
+            // 
+            // mrp
+            // 
+            this.mrp.HeaderText = "MRP(RS)";
+            this.mrp.Name = "mrp";
+            this.mrp.ReadOnly = true;
+            // 
+            // rate
+            // 
+            this.rate.HeaderText = "RATE(RS)";
+            this.rate.Name = "rate";
+            this.rate.ReadOnly = true;
+            // 
+            // qty
+            // 
+            this.qty.HeaderText = "QTY";
+            this.qty.Name = "qty";
+            this.qty.ReadOnly = true;
+            // 
+            // gst
+            // 
+            this.gst.HeaderText = "GST(%)";
+            this.gst.Name = "gst";
+            this.gst.ReadOnly = true;
+            // 
+            // disc
+            // 
+            this.disc.HeaderText = "DISCOUNT";
+            this.disc.Name = "disc";
+            this.disc.ReadOnly = true;
+            // 
+            // value
+            // 
+            this.value.HeaderText = "VALUE";
+            this.value.Name = "value";
+            this.value.ReadOnly = true;
+            // 
             // VoucherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1253,7 +1292,7 @@
         private System.Windows.Forms.TextBox amount_pendingTextBox;
         internal System.Windows.Forms.Button saveButton;
         internal System.Windows.Forms.Button modifyButton;
-        private System.Windows.Forms.ComboBox party_nameTextBox;
+        private System.Windows.Forms.ComboBox party_nameComboBox;
         private System.Windows.Forms.DateTimePicker voucher_duedateDateTimePicker;
         private System.Windows.Forms.DateTimePicker voucher_dateDateTimePicker;
         private System.Windows.Forms.ComboBox voucher_typeTextBox;
@@ -1299,7 +1338,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox valuetb;
+        private System.Windows.Forms.TextBox disctb;
         private System.Windows.Forms.ComboBox unitcb;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.TextBox gsttb;
@@ -1312,12 +1351,16 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox item_namecb;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label errorLabel;
+        private System.Windows.Forms.Label errLabel;
+        private System.Windows.Forms.TextBox mrptb;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn item_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mrp;
         private System.Windows.Forms.DataGridViewTextBoxColumn rate;
         private System.Windows.Forms.DataGridViewTextBoxColumn qty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn unit;
         private System.Windows.Forms.DataGridViewTextBoxColumn gst;
+        private System.Windows.Forms.DataGridViewTextBoxColumn disc;
         private System.Windows.Forms.DataGridViewTextBoxColumn value;
     }
 }

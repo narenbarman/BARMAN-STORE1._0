@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BARMAN_STORE1._0.Distributors;
+using BARMAN_STORE1._0.Include;
+using BARMAN_STORE1._0.Items;
 
 namespace BARMAN_STORE1._0
 {
@@ -33,28 +35,21 @@ namespace BARMAN_STORE1._0
         }
         public void enabled_menu()
         {
-            ts_ManageUsers.Enabled = true;
-            ts_Report.Enabled = false;
-            ts_Return.Enabled = true;
-            ts_StockOut.Enabled = true;
-            ts_stocks.Enabled = true;
+            menuStrip1.Visible = true;
             ts_Login.Text = "Logout";
             ts_Login.Image = Resources.log_close;
-            ts_settings.Enabled = true;
+            
 
         }
         public void disabled_menu()
         {
-            ts_ManageUsers.Enabled = false;
-            ts_Report.Enabled = false;
-            ts_Return.Enabled = false;
-            ts_StockOut.Enabled = false;
-            ts_stocks.Enabled = false;
+            menuStrip1.Visible = false;
             ts_Login.Image = Resources.log_open;
-            ts_settings.Enabled = false;
+            
         }
         public void showFrm(Form frm)
         {
+            closeForm();
             this.IsMdiContainer = true;
             frm.MdiParent = this;
             frm.FormBorderStyle = FormBorderStyle.None;
@@ -62,36 +57,7 @@ namespace BARMAN_STORE1._0
             frm.Show();
         }
 
-        private void ts_stocks_Click(object sender, EventArgs e)
-        {
-            closeForm();
-            //showFrm(new frmItems());
-        }
-
-        private void ts_StockOut_Click(object sender, EventArgs e)
-        {
-            closeForm();
-            //showFrm(new frmStockOut(""));
-        }
-
-        private void ts_Return_Click(object sender, EventArgs e)
-        {
-            closeForm();
-            //showFrm(new frmReturn());
-        }
-
-        private void ts_ManageUsers_Click(object sender, EventArgs e)
-        {
-            closeForm();
-            //showFrm(new frmUsers());
-        }
-
-        private void ts_Report_Click(object sender, EventArgs e)
-        {
-            closeForm();
-            //showFrm(new frmReport());
-
-        }
+        
 
         private void ts_Login_Click(object sender, EventArgs e)
         {
@@ -112,23 +78,6 @@ namespace BARMAN_STORE1._0
         {
             disabled_menu();
             
-        }
-
-        private void ts_settings_Click(object sender, EventArgs e)
-        {
-            closeForm();
-            //showFrm(new frmSettings());
-        }
-
-        private void voucherToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            closeForm();
-            //showFrm(new VoucherForm());
-        }
-
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
         }
 
         private void purchaseRecordsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -173,6 +122,45 @@ namespace BARMAN_STORE1._0
             DistributorEditForm form = new DistributorEditForm(-500);
             form.EditMode(true);
             form.ShowDialog();
+        }
+
+        private void iTEMSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ItemForm form=new ItemForm();
+            showFrm(form);  
+        }
+
+        private void nEWToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            ItemEditForm form=new ItemEditForm(-500);
+            form.EditMode(true);
+            form.ShowDialog();
+        }
+
+        private void vOUCHERLISTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PurchaseList form =new PurchaseList();
+            showFrm(form);
+        }
+
+        private void aDDNEWToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VoucherForm form = new VoucherForm(-500);
+            form.EditMode(true);
+            form.ShowDialog();
+        }
+
+        private void pRODUCTLISTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ItemForm form=new ItemForm();
+            showFrm(form);
+        }
+
+        private void aDDNEWToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ItemEditForm itemEditFormform=new ItemEditForm(-500);
+            itemEditFormform.EditMode(true);
+            itemEditFormform.ShowDialog();
         }
     }
 }

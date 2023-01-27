@@ -13,8 +13,9 @@ namespace BARMAN_STORE1._0.Include
     
     class SQLConfig
     {
+        //private const string CONNECTIONSTRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\NAREN\DESKTOP\BSPROJECT\BARMAN STORE1._0\USERDATABASE.MDF;Integrated Security=True";
 
-        private const string CONNECTIONSTRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\NAREN\DESKTOP\BSPROJECT\BARMAN STORE1._0\USERDATABASE.MDF;Integrated Security=True";
+        private const string CONNECTIONSTRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\BARMANSTORE\UserDatabase.mdf;Integrated Security=True;Connect Timeout=30";
         public string MyConnectionString()
         {
             return CONNECTIONSTRING;
@@ -28,6 +29,7 @@ namespace BARMAN_STORE1._0.Include
         public DataView dataView;
         int result;
         usableFunction funct = new usableFunction();
+        
         public bool CExecute_CUD(string sql, string msg_false, string msg_true)
         {
             try
@@ -311,7 +313,11 @@ namespace BARMAN_STORE1._0.Include
             Execute_Query("UPDATE `tblautonumber` SET `END`=`END`+`INCREMENT` WHERE `DESCRIPTION`='" + id + "'");
         }
        
-
+        public void CHKDTB()
+        {
+            string sql = @"if NOT exists (select name from sys.databases where name=(LocalDB)\MSSQLLocalDB;AttachDbFilename=H:\BARMAN_STORE\MYDatabase.mdf) BEGIN CREATE DATABASE c:\BARMAN_STORE\UserDatabase.mdf; END;" ;
+            Execute_Query(sql);
+        }
 
     }
 }

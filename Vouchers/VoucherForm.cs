@@ -23,15 +23,15 @@ namespace BARMAN_STORE1._0.Vouchers
         private DateTime? voucher_duedate;
         private string party_name;
         private string voucher_type;
-        private double? voucher_amount;
-        private double? amount_pending;
+        private float voucher_amount;
+        private string amount_pending;
         SQLConfig config = new SQLConfig();
 
         public VoucherForm(int voucherid)
         {
             InitializeComponent();
             voucher_id = voucherid;
-            config.fiil_CBO("select party_name from party", party_nameTextBox);
+            config.fiil_CBO("select party_name from party", party_nameComboBox);
             voucher_dateDateTimePicker.DataBindings.Add("Value", voucher_dateTextBox, "Text", true, DataSourceUpdateMode.OnPropertyChanged, "null", string.Format("dd-MM-yyyy"));
             voucher_duedateDateTimePicker.DataBindings.Add("Value", voucher_duedateTextBox, "Text", true, DataSourceUpdateMode.OnPropertyChanged, "null", string.Format("dd-MM-yyyy"));
             dateTextBox.DataBindings.Add("Text", dateTimePicker1, "Text");
@@ -55,7 +55,7 @@ namespace BARMAN_STORE1._0.Vouchers
         internal void EditMode(bool ans)
         {
             voucher_noTextBox.ReadOnly = !ans;
-            party_nameTextBox.Enabled = ans;
+            party_nameComboBox.Enabled = ans;
             voucher_amountTextBox.ReadOnly = !ans;
             voucher_dateDateTimePicker.Enabled = ans;
             voucher_duedateDateTimePicker.Enabled = ans;
@@ -68,80 +68,36 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-
-            if (string.IsNullOrEmpty(voucher_dateTextBox.Text))
-            {
-                voucher_dateTextBox.Focus(); return;
-            }
-            if (string.IsNullOrEmpty(voucher_noTextBox.Text))
-            {
-                voucher_noTextBox.Focus(); return;
-            }
-            if (string.IsNullOrEmpty(party_nameTextBox.Text))
-            {
-                party_nameTextBox.Focus(); return;
-            }
-            if (string.IsNullOrEmpty(voucher_dateTextBox.Text))
-            {
-                voucher_dateTextBox.Focus(); return;
-            }
-            if (string.IsNullOrEmpty(voucher_duedateTextBox.Text))
-            {
-                voucher_dateTextBox.Focus(); return;
-            }
-            /*
-            if (DateTime.Parse(voucher_duedateTextBox.Text) >= DateTime.Parse(voucher_duedateTextBox.Text))
-            {
-                voucher_duedateTextBox.Focus();
-                return;
-            }*/
-            double outval;
-            if (string.IsNullOrEmpty(voucher_amountTextBox.Text) || !double.TryParse(voucher_amountTextBox.Text, out outval))
-            {
-                voucher_amountTextBox.Focus(); return;
-            }
-            if (string.IsNullOrEmpty(voucher_typeTextBox.Text))
-            {
-                voucher_typeTextBox.Focus(); return;
-            }
+            errorLabel.Text="";
+            if (string.IsNullOrEmpty(voucher_noTextBox.Text)) { voucher_noTextBox.Focus();errorLabel.Text="BILL NO CANNOT BE BLANK";return; }
             if (voucher_noTextBox.Text != voucher_no)
             {
                 config.singleResult("select voucher_no from voucher where voucher_no='" + voucher_noTextBox.Text + "'");
-                if (config.datatable.Rows.Count > 0)
-                {
-                    voucher_noTextBox.Focus();
-                    MessageBox.Show("BILL NO ALREADY EXIST");
-                    return;
-                }
+                if (config.datatable.Rows.Count > 0){voucher_noTextBox.Focus();errorLabel.Text= "BILL NO ALREADY EXIST"; return;}
             }
+            string voucher_no_old = voucher_no;
+            voucher_no = voucher_noTextBox.Text;
+            MessageBox.Show(party_nameComboBox.Text);
+            if (string.IsNullOrEmpty(party_nameComboBox.Text)) { party_nameComboBox.Focus(); errorLabel.Text="PARTY NAME CANNOT BE BLANK"; return; }
+            party_name = party_nameComboBox.Text;
+            
+            float val1;
+            if (float.TryParse(voucher_amountTextBox.Text,out val1)) { voucher_amount=val1; }
+            else { voucher_amountTextBox.Focus(); errorLabel.Text = "Invalid Bill Amount"; return; }
+            
+            DateTime dat1;
+            if (DateTime.TryParse(voucher_dateTextBox.Text,out dat1)) { voucher_date = dat1; }
+            else { voucher_dateTextBox.Focus();errorLabel.Text = "Invalid Bill Date"; return; }
+
+            DateTime dat2;
+            if (DateTime.TryParse(voucher_duedateTextBox.Text, out dat2)) { voucher_duedate = dat2; }
+            else { voucher_duedateTextBox.Focus(); errorLabel.Text = "Invalid Due Date"; return; }
+            
+            if (string.IsNullOrEmpty(voucher_typeTextBox.Text)) { voucher_typeTextBox.Focus(); errorLabel.Text = "Invalid Bill Type"; return; }    
+            voucher_type= voucher_typeTextBox.Text;
             try
             {
-                DateTime x = DateTime.Today;
-                string voucher_no_old = voucher_no;
-                voucher_no = voucher_noTextBox.Text;
-                party_name = party_nameTextBox.Text;
-                voucher_amount = double.Parse(voucher_amountTextBox.Text);
-                if (DateTime.TryParse(voucher_dateTextBox.Text, out x))
-                {
-                    voucher_date = DateTime.Parse(voucher_dateTextBox.Text);
-
-                }
-                else
-                {
-                    voucher_date = null;
-                }
-
-                if (DateTime.TryParse(voucher_duedateTextBox.Text, out x))
-                {
-                    voucher_duedate = DateTime.Parse(voucher_duedateTextBox.Text);
-                }
-                else
-                    voucher_duedate = null;
-
-
-                voucher_type = voucher_typeTextBox.Text;
                 string sql;
-
                 if (voucher_id == -500)
                 {
                     sql = @"insert into [voucher] 
@@ -198,8 +154,8 @@ namespace BARMAN_STORE1._0.Vouchers
                         party_name as 'PARTY NAME',voucher_amount as 
                         'BILL AMOUNT',VOUCHER_DATE AS 'BILL DATE',
                         VOUCHER_DUEDATE AS 'DUE DATE',
-                        voucher_amount-COALESCE((SELECT sum(trans_amount) 
-                        from [transaction] where voucher_no=[voucher].voucher_no),0) 
+                        FORMAT(voucher_amount-COALESCE((SELECT sum(trans_amount) 
+                        from [transaction] where voucher_no=[voucher].voucher_no),0), '0.00') 
                         as 'AMOUNT PENDING',voucher_type as 'Type' From VOUCHER 
                         WHERE id=" + voucher_id;
             config.singleResult(sql);
@@ -209,23 +165,23 @@ namespace BARMAN_STORE1._0.Vouchers
             {
                 voucher_no = config.datatable.Rows[0].Field<string>(1);
                 party_name = config.datatable.Rows[0].Field<string>(2);
-                voucher_amount = config.datatable.Rows[0].Field<double>(3);
+                voucher_amount = config.datatable.Rows[0].Field<Single>(3);
                 voucher_date = config.datatable.Rows[0][4] as DateTime?;
                 voucher_duedate = config.datatable.Rows[0][5] as DateTime?;
-                amount_pending = config.datatable.Rows[0].Field<double>(6);
+                amount_pending = config.datatable.Rows[0].Field<string>(6);
                 voucher_type = config.datatable.Rows[0].Field<string>(7);
             }
 
             idTextBox.Text = voucher_id.ToString();
             voucher_noTextBox.Text = voucher_no;
-            party_nameTextBox.Text = party_name;
-            voucher_amountTextBox.Text = voucher_amount.ToString();
+            party_nameComboBox.Text = party_name;
+            voucher_amountTextBox.Text = voucher_amount.ToString("0.00");
             voucher_dateTextBox.Text = voucher_date.ToString();
             voucher_duedateTextBox.Text = voucher_duedate.ToString();
             voucher_typeTextBox.Text = voucher_type;
-            amount_pendingTextBox.Text = amount_pending.ToString();
-            double number;
-            if (double.TryParse(voucher_amountTextBox.Text, out number))
+            amount_pendingTextBox.Text = string.Format(amount_pending,"0.00");
+            float number;
+            if (float.TryParse(voucher_amountTextBox.Text, out number))
             {
                 voucher_amountTextBox.ForeColor = Color.Black;
                 voucher_amountTextBox.Text = number.ToString("0.00");
@@ -239,6 +195,7 @@ namespace BARMAN_STORE1._0.Vouchers
                 LoadBill();
             }
             panel4.Visible = (voucher_id > 0);
+            
         }
 
 
@@ -262,7 +219,7 @@ namespace BARMAN_STORE1._0.Vouchers
                         WHERE voucher_no='" + voucher_no + "'";
             config.Load_DTG(sql, dataGridView2);
             amountTextBox.Text = amount_pending.ToString();
-            if (!string.IsNullOrEmpty(amountTextBox.Text)) amountTextBox.Text = double.Parse(amountTextBox.Text).ToString("0.00");
+            if (!string.IsNullOrEmpty(amountTextBox.Text)) amountTextBox.Text = float.Parse(amountTextBox.Text).ToString("0.00");
             billnoTextBox.Text = voucher_no;
             partynameTextBox.Text = party_name;
             cashCheckBox.Checked = true;
@@ -271,15 +228,9 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void amount_pendingTextBox_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                amount_pendingTextBox.ForeColor = Color.Black;
-                amount_pendingTextBox.Text = String.Format("{0:0.00}", double.Parse(amount_pendingTextBox.Text));
-            }
-            catch (Exception ex)
-            {
-                voucher_amountTextBox.ForeColor = Color.Red;
-            }
+            float val;
+             float.TryParse(amount_pendingTextBox.Text, out val);
+            amount_pendingTextBox.Text = val.ToString("0.00");
         }
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -292,8 +243,8 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void voucher_amountTextBox_Validating(object sender, CancelEventArgs e)
         {
-            double number;
-            if (double.TryParse(voucher_amountTextBox.Text, out number))
+            float number;
+            if (float.TryParse(voucher_amountTextBox.Text, out number))
             {
                 voucher_amountTextBox.ForeColor = Color.Black;
                 voucher_amountTextBox.Text = number.ToString("0.00");
@@ -368,8 +319,8 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void amountTextBox_Validating(object sender, CancelEventArgs e)
         {
-            double val;
-            if (double.TryParse(amountTextBox.Text, out val))
+            float val;
+            if (float.TryParse(amountTextBox.Text, out val))
             {
                 amountTextBox.Text = val.ToString("0.00");
             }
@@ -377,22 +328,30 @@ namespace BARMAN_STORE1._0.Vouchers
 
         private void submitButton_Click(object sender, EventArgs e)
         {
+            errLabel.Text = "";
             if (string.IsNullOrEmpty(billnoTextBox.Text))
-                return;
-            double val;
-            if (!double.TryParse(amountTextBox.Text, out val))
             {
-                amountTextBox.Focus();
+                errLabel.Text = "Invalid Bill no";
                 return;
             }
+            float trans_amount,val;
+            if (float.TryParse(amountTextBox.Text, out val)) { trans_amount = val; }
+            else
+            {
+                amountTextBox.Focus();
+                errLabel.Text = "Invalid Transaction Amount";
+                return;
+            }
+            
             string paymentmode;
             if (cashCheckBox.Checked) paymentmode = "cash";
             else if (chqCheckBox.Checked) paymentmode = "cheque";
             else if (upiCheckBox.Checked) paymentmode = "upi";
             else paymentmode = "none";
-            TransactionDialogForm frm = new TransactionDialogForm(billnoTextBox.Text, party_nameTextBox.Text, voucher_type, amountTextBox.Text, dateTextBox.Text, chqpartyTextBox.Text, chqbankTextBox.Text, chqnoTextBox.Text, chqdateTextBox.Text, upiphonenoTextBox.Text, upiidTextBox.Text, upitrnoTextBox.Text, upidateTextBox.Text, paymentmode);
+            TransactionDialogForm frm = new TransactionDialogForm(billnoTextBox.Text, party_nameComboBox.Text, voucher_type, trans_amount, dateTextBox.Text, chqpartyTextBox.Text, chqbankTextBox.Text, chqnoTextBox.Text, chqdateTextBox.Text, upiphonenoTextBox.Text, upiidTextBox.Text, upitrnoTextBox.Text, upidateTextBox.Text, paymentmode);
+            frm.ShowDialog();
+            LoadTransaction();
 
-            frm.Show();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -450,8 +409,10 @@ namespace BARMAN_STORE1._0.Vouchers
         private void BillEditMode(bool ans)
         {
             label6.Visible = label7.Visible = label8.Visible = label9.Visible = label10.Visible = label11.Visible = label12.Visible = ans;
-            idcb.Visible = item_namecb.Visible = ratetb.Visible = qtytb.Visible = unitcb.Visible = gsttb.Visible = valuetb.Visible = ans;
-
+            idcb.Visible = item_namecb.Visible =mrptb.Visible= ratetb.Visible = qtytb.Visible =  gsttb.Visible = disctb.Visible = ans;
+            label13.Location = new System.Drawing.Point(3, 0);
+            label13.Size = new System.Drawing.Size(660, 52);
+            label13.Text = "BILL DETAILS";
             addButton.Visible = ans;
             label13.Visible = !ans;
             if (ans == true)
@@ -473,10 +434,12 @@ namespace BARMAN_STORE1._0.Vouchers
                         "CREATE TABLE [dbo].[" + dboname + "] " +
                         "([id] INT IDENTITY (1, 1) NOT NULL," +
                         "[item_name] NVARCHAR (50) not NULL," +
+                        "[mrp] REAL   NULL," +
                         "[rate] REAL  not NULL," +
                         "[qty] REAL   not NULL," +
-                        "[gst] REAL        null," +
                         "[unit] nvarchar(20)    null," +
+                        "[gst] REAL        null," +
+                        "[disc] REAL        null," +
                         " PRIMARY KEY CLUSTERED ([id] ASC)); ";
             config.Execute_Query(sql);
             LoadRecord(dboname);
@@ -494,17 +457,18 @@ namespace BARMAN_STORE1._0.Vouchers
             {
                 int id = config.datatable.Rows[i].Field<int>("id");
                 string item_name = config.datatable.Rows[i].Field<string>("item_name");
+                float mrp = config.datatable.Rows[i].Field<float>("mrp");
+                float rate =config.datatable.Rows[i].Field<float>("rate");
                 float gst = config.datatable.Rows[i].Field<float>("gst");
                 float qty = config.datatable.Rows[i].Field<float>("qty");
-                float rate = config.datatable.Rows[i].Field<float>("rate");
-
                 string unit = config.datatable.Rows[i].Field<string>("unit");
-                float value = rate * qty + (rate * qty * gst / 100);
+                float disc = config.datatable.Rows[i].Field<float>("disc");
+                float value = (rate * qty- (rate * qty * disc / 100))+ ((rate * qty - (rate * qty * disc / 100)) * gst / 100);
                 total += value;
-                dataGridView1.Rows.Add(id, item_name, rate, qty, unit, gst, value);
+                dataGridView1.Rows.Add(id, item_name,mrp.ToString("0.00"), rate.ToString("0.00"), qty+" "+unit,  gst,disc, value);
 
             }
-            dataGridView1.Rows.Add("", "TOTAL", "", "", "", "", total);
+            dataGridView1.Rows.Add("", "TOTAL", "", "", "", "","","", total);
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -521,10 +485,7 @@ namespace BARMAN_STORE1._0.Vouchers
             }
         }
 
-        private void item_namecb_Validated(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void LoadIdCombo()
         {
@@ -562,6 +523,17 @@ namespace BARMAN_STORE1._0.Vouchers
 
                 return;
             }
+            if (string.IsNullOrEmpty(mrptb.Text))
+            {
+                mrptb.Focus();
+                return;
+            }
+            float mrp;
+            if (!(float.TryParse(mrptb.Text, out mrp)))
+            {
+                mrptb.Focus();
+                return;
+            }
             if (string.IsNullOrEmpty(ratetb.Text))
             {
                 ratetb.Focus();
@@ -584,48 +556,61 @@ namespace BARMAN_STORE1._0.Vouchers
                 qtytb.Focus();
                 return;
             }
-            string unit = "";
-            if (string.IsNullOrEmpty(unitcb.Text))
-            {
-                unitcb.Focus();
-
-                return;
-            }
+            string unit = unitcb.Text;
+            
             if (string.IsNullOrEmpty(gsttb.Text))
             {
                 gsttb.Focus();
                 return;
             }
             float gst;
-            if (!(float.TryParse(qtytb.Text, out gst)))
+            if (!(float.TryParse(gsttb.Text, out gst)))
             {
                 gsttb.Focus();
                 return;
             }
+            if (string.IsNullOrEmpty(disctb.Text))
+            {
+                disctb.Focus();
+                return;
+            }
+            float disc;
+            if (!(float.TryParse(disctb.Text, out disc)))
+            {
+                disctb.Focus();
+                return;
+            }
             int id = int.Parse(idcb.Text);
+            mrp= float.Parse(mrptb.Text);
             rate = float.Parse(ratetb.Text);
             qty = float.Parse(qtytb.Text);
             gst = float.Parse(gsttb.Text);
+            disc = float.Parse(disctb.Text);
             item_name = item_namecb.Text;
-            unit = unitcb.Text;
+            unit = "U";
             float value = rate * qty + (rate * qty / 100);
             string sql = @"if exists (select * from " + dboname + " where id=" + id + ") " +
                         "begin " +
                         "update " + dboname + " set " +
                         "item_name='" + item_name + "'," +
+                        "mrp=" + mrp + "," +
                         "rate=" + rate + "," +
                         "qty=" + qty + "," +
                         "unit='" + unit + "'," +
-                        "gst=" + gst + " where id=" + id + "; " +
+                        "gst=" + gst +","+
+                        "disc=" + disc + " " +
+                        "where id=" + id + "; " +
                         "end " +
                         "else " +
                         "begin " +
-                        "insert into " + dboname + " (item_name,rate,qty,unit,gst) values ('" + item_name + "'," + rate + "," + qty + ",'" + unit + "'," + gst + ") ;" +
+                        "SET IDENTITY_INSERT " + dboname + " ON; "+
+                        "insert into " + dboname + " (id,item_name,mrp,rate,qty,unit,gst,disc) values ("+id+",'" + item_name + "'," + mrp + "," + rate + "," + qty + ",'" + unit + "'," + gst+"," +disc+ ") ;" +
+                        "SET IDENTITY_INSERT " + dboname + " OFF;"+
                         "end;";
             config.singleResult("select id from items where item_name='" + item_name + "'");
-            if (config.datatable.Rows.Count > 0)
+            if (config.datatable.Rows.Count == 0)
             {
-                sql = sql + "insert into items (item_name,rate,gst,unit) values ('" + item_name + "'," + rate + "," + gst + ",'" + unit + "');";
+                sql = sql + "insert into items (item_name,mrp,rate,gst,unit) values ('" + item_name + "',"+mrp+"," + rate + "," + gst + ",'" + unit + "');";
             }
             config.CExecute_CUD(sql, "Record unable save", "Record updated successfully");
             LoadIdCombo();
@@ -640,27 +625,22 @@ namespace BARMAN_STORE1._0.Vouchers
             config.singleResult(sql);
             if (config.datatable.Rows.Count > 0)
             {
-                string item_name = config.datatable.Rows[0].Field<string>("item_name");
-                float rate = config.datatable.Rows[0].Field<float>("rate");
-                float gst = config.datatable.Rows[0].Field<float>("gst");
-                string unit = config.datatable.Rows[0].Field<string>("unit");
-                float qty = config.datatable.Rows[0].Field<float>("qty");
-                float value = (rate * qty + (rate * qty * gst / 100));
-                item_namecb.Text = item_name;
-                ratetb.Text = rate.ToString();
-                gsttb.Text = gst.ToString();
-                unitcb.Text = unit;
-                qtytb.Text = qty.ToString();
-                valuetb.Text = value.ToString();
+                
+                item_namecb.Text = config.datatable.Rows[0].Field<string>("item_name");
+                mrptb.Text= config.datatable.Rows[0].Field<float>("mrp").ToString("0.00");
+                ratetb.Text = config.datatable.Rows[0].Field<float>("rate").ToString("0.00");
+                gsttb.Text = config.datatable.Rows[0].Field<float>("gst").ToString();              
+                qtytb.Text = config.datatable.Rows[0].Field<Single>("qty").ToString();
+                disctb.Text = config.datatable.Rows[0].Field<Single>("disc").ToString();
             }
             else
             {
                 item_namecb.Text = "";
+                mrptb.Text = "";
                 ratetb.Text = "";
                 gsttb.Text = "";
-                unitcb.Text = "";
                 qtytb.Text = "";
-                valuetb.Text = "";
+                disctb.Text = "";
             }
         }
 
@@ -670,9 +650,10 @@ namespace BARMAN_STORE1._0.Vouchers
             config.singleResult(sql);
             if (config.datatable.Rows.Count > 0)
             {
-                ratetb.Text = config.datatable.Rows[0].Field<float>("rate").ToString();
-                gsttb.Text = config.datatable.Rows[0].Field<float>("gst").ToString();
-                unitcb.Text = config.datatable.Rows[0].Field<string>("unit");
+                mrptb.Text= config.datatable.Rows[0].Field<string>("rate");
+                ratetb.Text = config.datatable.Rows[0].Field<string>("rate");
+                gsttb.Text = config.datatable.Rows[0].Field<string>("gst");
+                
             }
         }
     }
